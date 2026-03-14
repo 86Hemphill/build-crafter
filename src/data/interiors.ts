@@ -16,5 +16,13 @@ export const interiorIdeas: InteriorIdea[] = [
   { id: "garden-wall", label: "Living moss wall", themes: ["nature"], sizes: ["small", "medium", "big"] },
   { id: "crafting-bay", label: "Dedicated crafting bay", themes: ["starter", "survival"], sizes: ["small", "medium", "big"] },
   { id: "vault-room", label: "Treasure vault corner", themes: ["fancy", "medieval"], sizes: ["big"] },
-  { id: "music-corner", label: "Music corner with note blocks", themes: ["cozy", "nature", "fancy"], sizes: ["small", "medium", "big"] }
+  { id: "music-corner", label: "Music corner with note blocks", themes: ["cozy", "nature", "fancy"], sizes: ["small", "medium", "big"] },
+  { id: "stable-stalls", label: "Indoor stable stalls", themes: ["medieval", "survival"], sizes: ["medium", "big"] },
+  { id: "sunroom", label: "Bright sunroom with hanging plants", themes: ["nature", "fancy", "cozy"], sizes: ["medium", "big"] },
+  { id: "entry-bench", label: "Mudroom bench and boot shelf", themes: ["starter", "cozy"], sizes: ["small", "medium"] },
+  { id: "workshop-wall", label: "Tool wall above a workshop bench", themes: ["starter", "survival", "medieval"], sizes: ["small", "medium", "big"] },
+  { id: "aquarium", label: "Mini aquarium feature wall", themes: ["fancy", "nature"], sizes: ["medium", "big"] },
+  { id: "bunk-nook", label: "Bunk nook for guests", themes: ["starter", "survival", "cozy"], sizes: ["small", "medium"] },
+  { id: "loft-hammock", label: "Loft hammock chill corner", themes: ["nature", "cozy"], sizes: ["small", "medium"] },
+  { id: "banquet-table", label: "Long banquet table", themes: ["medieval", "fancy"], sizes: ["big"] }
 ];

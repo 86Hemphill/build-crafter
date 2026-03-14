@@ -98,5 +98,82 @@ export const buildIdeas: BuildIdea[] = [
     summary: "A rugged survival bunker with ore storage and quick access tunnels.",
     themes: ["survival", "starter"],
     sizes: ["small", "medium"]
+  },
+  {
+    id: "sunflower-cottage",
+    title: "Sunflower Meadow Cottage",
+    summary: "A cheerful cottage ringed with bright flowers and a bee-friendly yard.",
+    themes: ["cozy", "nature", "starter"],
+    sizes: ["small", "medium"]
+  },
+  {
+    id: "clifftop-observatory",
+    title: "Clifftop Observatory",
+    summary: "A stargazing retreat with wide windows, quiet corners, and dramatic views.",
+    themes: ["fancy", "nature", "cozy"],
+    sizes: ["medium", "big"]
+  },
+  {
+    id: "harbor-warehouse",
+    title: "Harbor Warehouse Home",
+    summary: "A practical dockside build with cargo space downstairs and living quarters above.",
+    themes: ["survival", "starter", "medieval"],
+    sizes: ["medium", "big"]
+  },
+  {
+    id: "royal-stables",
+    title: "Royal Stables Residence",
+    summary: "A noble stable hall with a loft bedroom and an elegant courtyard entrance.",
+    themes: ["medieval", "fancy"],
+    sizes: ["medium", "big"]
+  },
+  {
+    id: "mushroom-hideaway",
+    title: "Mushroom Grove Hideaway",
+    summary: "A whimsical home nestled among giant mushrooms and soft lantern light.",
+    themes: ["nature", "cozy"],
+    sizes: ["small", "medium"]
+  },
+  {
+    id: "desert-courtyard",
+    title: "Desert Courtyard House",
+    summary: "A breezy sandstone home built around a shaded fountain and bright rugs.",
+    themes: ["fancy", "starter"],
+    sizes: ["medium", "big"]
+  },
+  {
+    id: "blacksmith-row",
+    title: "Blacksmith Row House",
+    summary: "A forge-front home with workshop heat below and a compact upper loft.",
+    themes: ["medieval", "survival", "starter"],
+    sizes: ["small", "medium"]
+  },
+  {
+    id: "canopy-treehouse",
+    title: "Canopy Treehouse",
+    summary: "A sky-high base woven through branches with rope bridges and lookout decks.",
+    themes: ["nature", "survival", "cozy"],
+    sizes: ["medium", "big"]
+  },
+  {
+    id: "ice-fort",
+    title: "Icebound Fort",
+    summary: "A hardy cold-weather stronghold with thick walls, stores, and beacon views.",
+    themes: ["survival", "medieval"],
+    sizes: ["big"]
+  },
+  {
+    id: "glass-atelier",
+    title: "Glass Atelier",
+    summary: "A creative studio home with artful windows, bright worktables, and sleek lines.",
+    themes: ["fancy"],
+    sizes: ["small", "medium"]
+  },
+  {
+    id: "pumpkin-farmhouse",
+    title: "Pumpkin Farmhouse",
+    summary: "A harvest-ready farmhouse with autumn color, storage sheds, and a cozy porch.",
+    themes: ["cozy", "starter", "survival"],
+    sizes: ["medium", "big"]
   }
 ];

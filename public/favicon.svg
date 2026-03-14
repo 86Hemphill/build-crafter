@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+  <title>BuildCrafter favicon</title>
+  <rect width="128" height="128" rx="24" fill="#10251b"/>
+  <rect x="16" y="78" width="96" height="20" rx="6" fill="#6b4d2e"/>
+  <rect x="24" y="62" width="20" height="16" fill="#7fcf86"/>
+  <rect x="46" y="46" width="20" height="32" fill="#f4b159"/>
+  <rect x="68" y="30" width="20" height="48" fill="#8fd6ff"/>
+  <rect x="90" y="54" width="14" height="24" fill="#c0aa78"/>
+  <path d="M26 58 64 22l38 36" fill="none" stroke="#f7f3ea" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">BuildCrafter social card</title>
+  <desc id="desc">A Minecraft-inspired build plan generator with warm, playful block shapes.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#173428"/>
+      <stop offset="100%" stop-color="#0b140f"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="190" cy="130" r="180" fill="#f4b159" opacity="0.18"/>
+  <circle cx="1000" cy="520" r="220" fill="#7fd087" opacity="0.12"/>
+  <rect x="90" y="350" width="140" height="100" rx="12" fill="#6b4d2e"/>
+  <rect x="235" y="285" width="140" height="165" rx="12" fill="#f4b159"/>
+  <rect x="380" y="240" width="140" height="210" rx="12" fill="#8fd6ff"/>
+  <rect x="525" y="320" width="100" height="130" rx="12" fill="#c0aa78"/>
+  <path d="M95 330 305 160l245 170" fill="none" stroke="#f7f3ea" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="690" y="230" fill="#ffcf85" font-family="Trebuchet MS, Segoe UI, sans-serif" font-size="32" letter-spacing="7">BUILDCRAFTER</text>
+  <text x="690" y="310" fill="#f7f3ea" font-family="Trebuchet MS, Segoe UI, sans-serif" font-size="82" font-weight="700">Generate a full</text>
+  <text x="690" y="390" fill="#f7f3ea" font-family="Trebuchet MS, Segoe UI, sans-serif" font-size="82" font-weight="700">build plan in</text>
+  <text x="690" y="470" fill="#f7f3ea" font-family="Trebuchet MS, Segoe UI, sans-serif" font-size="82" font-weight="700">one click.</text>
+  <text x="690" y="535" fill="#d6c7ac" font-family="Trebuchet MS, Segoe UI, sans-serif" font-size="30">Curated themes, materials, interiors, and pet pairings.</text>
+</svg>

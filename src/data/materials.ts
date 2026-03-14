@@ -64,5 +64,37 @@ export const materialSets: MaterialSet[] = [
     walls: ["Cobblestone", "Oak Planks", "Stone Bricks"],
     floors: ["Oak Planks", "Stone Slabs", "Spruce Planks"],
     roofs: ["Spruce Stairs", "Cobblestone Stairs", "Stone Brick Stairs"]
+  },
+  {
+    id: "meadow-bright",
+    label: "Meadow Bright",
+    themes: ["cozy", "nature"],
+    walls: ["Birch Planks", "Cherry Logs", "Mossy Stone Accent"],
+    floors: ["Cherry Planks", "Birch Slabs", "Oak Planks"],
+    roofs: ["Cherry Stairs", "Spruce Stairs", "Pink Terracotta"]
+  },
+  {
+    id: "desert-polish",
+    label: "Desert Polish",
+    themes: ["fancy", "starter"],
+    walls: ["Smooth Sandstone", "Cut Sandstone", "Acacia Trim"],
+    floors: ["Smooth Sandstone", "Acacia Planks", "Terracotta Tiles"],
+    roofs: ["Red Sandstone Stairs", "Acacia Stairs", "Orange Terracotta"]
+  },
+  {
+    id: "frost-keep",
+    label: "Frost Keep",
+    themes: ["survival", "medieval"],
+    walls: ["Deepslate Bricks", "Packed Ice Accent", "Spruce Logs"],
+    floors: ["Dark Oak Planks", "Polished Deepslate", "Stone Brick Slabs"],
+    roofs: ["Deepslate Tile Stairs", "Dark Oak Stairs", "Stone Brick Stairs"]
+  },
+  {
+    id: "lush-canopy",
+    label: "Lush Canopy",
+    themes: ["nature", "cozy"],
+    walls: ["Jungle Planks", "Mangrove Logs", "Moss Blocks"],
+    floors: ["Bamboo Mosaic", "Mangrove Planks", "Oak Slabs"],
+    roofs: ["Jungle Stairs", "Mangrove Stairs", "Leaf Canopy Trim"]
   }
 ];
