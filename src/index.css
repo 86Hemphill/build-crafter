@@ -405,6 +405,13 @@ button {
   filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.18));
 }
 
+.pet-icon {
+  display: block;
+  margin: 0.2rem 0 0.7rem;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.16));
+}
+
 .material-gallery {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -435,6 +442,12 @@ button {
 
 .favorite-meta dd {
   margin: 0.15rem 0 0;
+}
+
+.pet-line {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
 }
 
 @media (max-width: 900px) {

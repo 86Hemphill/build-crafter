@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { MaterialBlockIcon } from "../components/MaterialBlockIcon";
+import { PetIcon } from "../components/PetIcon";
 import { findPlanById } from "../utils/plans";
 
 export function BuildPlanPage() {
@@ -70,7 +71,10 @@ export function BuildPlanPage() {
             </div>
             <div>
               <dt>Pet</dt>
-              <dd>{plan.pet.label}</dd>
+              <dd className="pet-line">
+                <PetIcon pet={plan.pet.type} size={56} />
+                <span>{plan.pet.label}</span>
+              </dd>
             </div>
           </dl>
         </section>

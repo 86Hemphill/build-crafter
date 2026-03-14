@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { MaterialBlockIcon } from "./MaterialBlockIcon";
+import { PetIcon } from "./PetIcon";
 import type { GeneratedBuild } from "../types/build";
 
 interface ResultCardProps {
@@ -43,6 +44,7 @@ export function ResultCard({ build }: ResultCardProps) {
         </article>
         <article>
           <h3>Pet</h3>
+          <PetIcon pet={build.pet.type} />
           <p>{build.pet.label}</p>
         </article>
         <article>
