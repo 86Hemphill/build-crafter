@@ -88,7 +88,7 @@ export function HomePage() {
         />
 
         {currentBuild ? (
-          <ResultCard build={currentBuild} />
+          <ResultCard key={currentBuild.id} build={currentBuild} />
         ) : (
           <section className="panel empty-state">
             <p className="eyebrow">Try These Filters</p>
