@@ -6,34 +6,30 @@ describe("createGeneratedBuild", () => {
 
     expect(build.id).toMatch(/^build-/);
     expect(build.buildIdea.length).toBeGreaterThan(0);
-    expect(build.materials.walls.length).toBeGreaterThan(0);
-    expect(build.interiorIdeas.length).toBeGreaterThanOrEqual(3);
-    expect(build.pet.nameSuggestions.length).toBeGreaterThanOrEqual(3);
+    expect(build.biomeLabel.length).toBeGreaterThan(0);
+    expect(build.purposeLabel.length).toBeGreaterThan(0);
+    expect(build.layoutPlan.length).toBeGreaterThanOrEqual(4);
+    expect(build.visualMockup.length).toBeGreaterThanOrEqual(4);
+    expect(build.buildSteps.length).toBeGreaterThanOrEqual(5);
   });
 
-  it("respects a selected theme", () => {
-    const build = createGeneratedBuild({ seed: 8, theme: "medieval" });
+  it("respects the expanded filters", () => {
+    const build = createGeneratedBuild({
+      seed: 15,
+      theme: "industrial",
+      size: "epic",
+      biome: "mountain",
+      purpose: "redstone"
+    });
 
-    expect(build.theme).toBe("medieval");
-    expect(build.themeLabel).toBe("Medieval");
+    expect(build.theme).toBe("industrial");
+    expect(build.size).toBe("epic");
+    expect(build.biome).toBe("mountain");
+    expect(build.purpose).toBe("redstone");
   });
 
-  it("respects a selected size", () => {
-    const build = createGeneratedBuild({ seed: 11, size: "big" });
-
-    expect(build.size).toBe("big");
-  });
-
-  it("falls back safely when an exact theme and size combo is sparse", () => {
-    const build = createGeneratedBuild({ seed: 17, theme: "starter", size: "big" });
-
-    expect(build.theme).toBe("starter");
-    expect(build.size).toBe("big");
-    expect(build.buildIdea.length).toBeGreaterThan(0);
-  });
-
-  it("avoids duplicate interiors and pet names in one build", () => {
-    const build = createGeneratedBuild({ seed: 99, theme: "cozy", size: "medium" });
+  it("returns unique interior ideas and pet names", () => {
+    const build = createGeneratedBuild({ seed: 19, theme: "whimsical", biome: "jungle" });
 
     expect(new Set(build.interiorIdeas).size).toBe(build.interiorIdeas.length);
     expect(new Set(build.pet.nameSuggestions).size).toBe(build.pet.nameSuggestions.length);

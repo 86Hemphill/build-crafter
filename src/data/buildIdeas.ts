@@ -2,178 +2,165 @@ import type { BuildIdea } from "../types/build";
 
 export const buildIdeas: BuildIdea[] = [
   {
-    id: "lakeside-cottage",
-    title: "Cozy Lakeside Cottage",
-    summary: "A warm cottage with a dock, lantern glow, and a fishing corner.",
-    themes: ["cozy", "nature", "starter"],
-    sizes: ["small", "medium"]
+    id: "mossy-cottage",
+    title: "Mossy Storybook Cottage",
+    summary: "A sweet cottage with soft rooflines, garden paths, and a welcoming porch.",
+    themes: ["cozy", "nature", "whimsical"],
+    sizes: ["tiny", "small", "medium"],
+    biomes: ["forest", "plains", "swamp"],
+    purposes: ["starter-home", "farming"]
   },
   {
-    id: "hilltop-retreat",
-    title: "Hilltop Retreat",
-    summary: "A scenic home perched above the valley with wraparound views.",
-    themes: ["cozy", "nature", "fancy"],
-    sizes: ["medium", "big"]
-  },
-  {
-    id: "market-townhouse",
-    title: "Market Townhouse",
-    summary: "A multi-level home that looks right at home near a village square.",
-    themes: ["fancy", "medieval"],
-    sizes: ["medium", "big"]
-  },
-  {
-    id: "watchtower-keep",
-    title: "Watchtower Keep",
-    summary: "A fortified tower with a lookout room and banner-lined stairs.",
-    themes: ["medieval", "survival"],
-    sizes: ["medium", "big"]
-  },
-  {
-    id: "forest-hideout",
-    title: "Forest Hideout",
-    summary: "A tucked-away build that blends into the trees and foliage.",
-    themes: ["nature", "survival", "starter"],
-    sizes: ["small", "medium"]
-  },
-  {
-    id: "grand-greenhouse",
-    title: "Grand Greenhouse Manor",
-    summary: "A bright glass-rich manor built around lush indoor gardens.",
+    id: "cliff-villa",
+    title: "Cliffside Vista Villa",
+    summary: "A luxury hillside home with terraces, windows, and a dramatic overlook.",
     themes: ["fancy", "nature"],
-    sizes: ["big"]
+    sizes: ["medium", "large", "epic"],
+    biomes: ["mountain", "coast"],
+    purposes: ["luxury", "storage"]
   },
   {
-    id: "stone-hearth-home",
-    title: "Stone Hearth Home",
-    summary: "A dependable house with a fireplace core and sturdy footprint.",
+    id: "gatehouse-keep",
+    title: "Gatehouse Keep",
+    summary: "A fortified residence with a courtyard entry, tower access, and stone backbone.",
+    themes: ["medieval", "survival"],
+    sizes: ["medium", "large", "epic"],
+    biomes: ["plains", "mountain", "snowy"],
+    purposes: ["defense", "storage"]
+  },
+  {
+    id: "reed-marsh-lodge",
+    title: "Reed Marsh Lodge",
+    summary: "A stilted home with lantern boardwalks and a mossy waterside feel.",
+    themes: ["nature", "whimsical", "survival"],
+    sizes: ["small", "medium", "large"],
+    biomes: ["swamp", "coast"],
+    purposes: ["starter-home", "farming"]
+  },
+  {
+    id: "forge-house",
+    title: "Forge House Workshop",
+    summary: "A practical home centered around a smithing bay and busy crafting floor.",
+    themes: ["industrial", "starter", "survival"],
+    sizes: ["small", "medium", "large"],
+    biomes: ["plains", "mountain", "desert"],
+    purposes: ["storage", "redstone"]
+  },
+  {
+    id: "canopy-treehouse",
+    title: "Canopy Treehouse Network",
+    summary: "A multi-platform jungle hideout linked by bridges and lookout decks.",
+    themes: ["nature", "whimsical", "survival"],
+    sizes: ["medium", "large", "epic"],
+    biomes: ["jungle", "forest"],
+    purposes: ["defense", "starter-home"]
+  },
+  {
+    id: "desert-court",
+    title: "Desert Court Residence",
+    summary: "A sun-washed home built around a shady inner court and patterned floors.",
+    themes: ["fancy", "starter", "whimsical"],
+    sizes: ["medium", "large"],
+    biomes: ["desert"],
+    purposes: ["luxury", "starter-home"]
+  },
+  {
+    id: "harbor-hall",
+    title: "Harbor Hall",
+    summary: "A dockside build with storage below, living space above, and ship-friendly access.",
+    themes: ["industrial", "survival", "medieval"],
+    sizes: ["medium", "large", "epic"],
+    biomes: ["coast"],
+    purposes: ["storage", "defense"]
+  },
+  {
+    id: "pumpkin-farmstead",
+    title: "Pumpkin Farmstead",
+    summary: "A harvest-first homestead with crop lanes, fences, and a cozy central house.",
     themes: ["cozy", "starter", "survival"],
-    sizes: ["small", "medium"]
+    sizes: ["small", "medium", "large"],
+    biomes: ["plains", "forest"],
+    purposes: ["farming", "starter-home"]
   },
   {
-    id: "river-mill",
-    title: "Riverside Millhouse",
-    summary: "A practical build with waterwheel energy and rustic charm.",
-    themes: ["medieval", "nature", "survival"],
-    sizes: ["medium", "big"]
+    id: "ice-observatory",
+    title: "Ice Observatory",
+    summary: "A cold-weather tower home with star views, warm interior pockets, and height.",
+    themes: ["fancy", "survival", "whimsical"],
+    sizes: ["medium", "large", "epic"],
+    biomes: ["snowy", "mountain"],
+    purposes: ["luxury", "enchanting"]
   },
   {
-    id: "quartz-villa",
-    title: "Quartz Cliff Villa",
-    summary: "A bright luxury villa with terraces, glass, and clean lines.",
-    themes: ["fancy"],
-    sizes: ["medium", "big"]
+    id: "library-sanctum",
+    title: "Library Sanctum",
+    summary: "A quiet, magical build wrapped around bookshelves, candles, and hidden study corners.",
+    themes: ["fancy", "medieval", "whimsical"],
+    sizes: ["small", "medium", "large"],
+    biomes: ["forest", "snowy", "mountain"],
+    purposes: ["enchanting", "luxury"]
   },
   {
-    id: "starter-farmstead",
-    title: "Starter Farmstead",
-    summary: "A simple but lovable farm home with room for crops and tools.",
-    themes: ["starter", "survival", "cozy"],
-    sizes: ["small", "medium"]
+    id: "windmill-home",
+    title: "Windmill Home",
+    summary: "A charming vertical build with flour storage, a tiny kitchen, and field views.",
+    themes: ["cozy", "medieval", "starter"],
+    sizes: ["tiny", "small", "medium"],
+    biomes: ["plains", "coast"],
+    purposes: ["farming", "starter-home"]
   },
   {
-    id: "snowy-lodge",
-    title: "Snowy Timber Lodge",
-    summary: "A roomy lodge with thick beams, warm lighting, and storage galore.",
-    themes: ["cozy", "survival"],
-    sizes: ["medium", "big"]
+    id: "redstone-barn",
+    title: "Redstone Barn Base",
+    summary: "A deceptively simple barn hiding sorting, piston doors, and utility systems.",
+    themes: ["industrial", "starter", "survival"],
+    sizes: ["medium", "large"],
+    biomes: ["plains", "forest", "desert"],
+    purposes: ["redstone", "storage"]
   },
   {
-    id: "garden-arch-home",
-    title: "Garden Arch Home",
-    summary: "A floral build framed with vines, hedges, and breezy paths.",
-    themes: ["nature", "cozy", "fancy"],
-    sizes: ["small", "medium"]
+    id: "lantern-market",
+    title: "Lantern Market House",
+    summary: "A bright upper-floor home perched over colorful stalls and alley lights.",
+    themes: ["whimsical", "fancy", "medieval"],
+    sizes: ["medium", "large"],
+    biomes: ["plains", "desert", "coast"],
+    purposes: ["luxury", "storage"]
   },
   {
-    id: "castle-courtyard",
-    title: "Castle Courtyard House",
-    summary: "A noble residence that feels at home inside a stone bailey.",
-    themes: ["medieval", "fancy"],
-    sizes: ["big"]
+    id: "mountain-bunker",
+    title: "Mountain Bunker",
+    summary: "A cliff-cut shelter with defensive paths, hidden storage, and a strong roofline.",
+    themes: ["survival", "industrial", "starter"],
+    sizes: ["small", "medium", "large"],
+    biomes: ["mountain", "snowy"],
+    purposes: ["defense", "storage"]
   },
   {
-    id: "mineshaft-bunker",
-    title: "Mineshaft Bunker",
-    summary: "A rugged survival bunker with ore storage and quick access tunnels.",
-    themes: ["survival", "starter"],
-    sizes: ["small", "medium"]
+    id: "beehouse",
+    title: "Honeycomb Beehouse",
+    summary: "A cheerful house built around apiaries, flowers, and warm golden accents.",
+    themes: ["whimsical", "cozy", "nature"],
+    sizes: ["tiny", "small", "medium"],
+    biomes: ["forest", "plains"],
+    purposes: ["farming", "starter-home"]
   },
   {
-    id: "sunflower-cottage",
-    title: "Sunflower Meadow Cottage",
-    summary: "A cheerful cottage ringed with bright flowers and a bee-friendly yard.",
-    themes: ["cozy", "nature", "starter"],
-    sizes: ["small", "medium"]
-  },
-  {
-    id: "clifftop-observatory",
-    title: "Clifftop Observatory",
-    summary: "A stargazing retreat with wide windows, quiet corners, and dramatic views.",
-    themes: ["fancy", "nature", "cozy"],
-    sizes: ["medium", "big"]
-  },
-  {
-    id: "harbor-warehouse",
-    title: "Harbor Warehouse Home",
-    summary: "A practical dockside build with cargo space downstairs and living quarters above.",
-    themes: ["survival", "starter", "medieval"],
-    sizes: ["medium", "big"]
+    id: "jungle-lab",
+    title: "Jungle Lab Retreat",
+    summary: "A hidden jungle workshop for potions, redstone tinkering, and experimental builds.",
+    themes: ["industrial", "whimsical", "nature"],
+    sizes: ["small", "medium", "large"],
+    biomes: ["jungle", "swamp"],
+    purposes: ["redstone", "enchanting"]
   },
   {
     id: "royal-stables",
     title: "Royal Stables Residence",
-    summary: "A noble stable hall with a loft bedroom and an elegant courtyard entrance.",
+    summary: "A noble stable hall with a loft bedroom, tack room, and parade-ready frontage.",
     themes: ["medieval", "fancy"],
-    sizes: ["medium", "big"]
-  },
-  {
-    id: "mushroom-hideaway",
-    title: "Mushroom Grove Hideaway",
-    summary: "A whimsical home nestled among giant mushrooms and soft lantern light.",
-    themes: ["nature", "cozy"],
-    sizes: ["small", "medium"]
-  },
-  {
-    id: "desert-courtyard",
-    title: "Desert Courtyard House",
-    summary: "A breezy sandstone home built around a shaded fountain and bright rugs.",
-    themes: ["fancy", "starter"],
-    sizes: ["medium", "big"]
-  },
-  {
-    id: "blacksmith-row",
-    title: "Blacksmith Row House",
-    summary: "A forge-front home with workshop heat below and a compact upper loft.",
-    themes: ["medieval", "survival", "starter"],
-    sizes: ["small", "medium"]
-  },
-  {
-    id: "canopy-treehouse",
-    title: "Canopy Treehouse",
-    summary: "A sky-high base woven through branches with rope bridges and lookout decks.",
-    themes: ["nature", "survival", "cozy"],
-    sizes: ["medium", "big"]
-  },
-  {
-    id: "ice-fort",
-    title: "Icebound Fort",
-    summary: "A hardy cold-weather stronghold with thick walls, stores, and beacon views.",
-    themes: ["survival", "medieval"],
-    sizes: ["big"]
-  },
-  {
-    id: "glass-atelier",
-    title: "Glass Atelier",
-    summary: "A creative studio home with artful windows, bright worktables, and sleek lines.",
-    themes: ["fancy"],
-    sizes: ["small", "medium"]
-  },
-  {
-    id: "pumpkin-farmhouse",
-    title: "Pumpkin Farmhouse",
-    summary: "A harvest-ready farmhouse with autumn color, storage sheds, and a cozy porch.",
-    themes: ["cozy", "starter", "survival"],
-    sizes: ["medium", "big"]
+    sizes: ["medium", "large", "epic"],
+    biomes: ["plains", "forest"],
+    purposes: ["luxury", "farming"]
   }
 ];

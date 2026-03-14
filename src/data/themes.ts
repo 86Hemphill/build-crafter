@@ -36,5 +36,17 @@ export const themes: ThemeMeta[] = [
     label: "Survival",
     description: "Practical forts and working spaces ready for adventure.",
     accent: "var(--theme-survival)"
+  },
+  {
+    id: "whimsical",
+    label: "Whimsical",
+    description: "Playful shapes, color pops, and storybook energy.",
+    accent: "var(--theme-whimsical)"
+  },
+  {
+    id: "industrial",
+    label: "Industrial",
+    description: "Workshop grit, iron details, and functional layout logic.",
+    accent: "var(--theme-industrial)"
   }
 ];

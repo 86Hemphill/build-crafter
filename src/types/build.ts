@@ -4,9 +4,30 @@ export type ThemeId =
   | "medieval"
   | "nature"
   | "starter"
-  | "survival";
+  | "survival"
+  | "whimsical"
+  | "industrial";
 
-export type BuildSize = "small" | "medium" | "big";
+export type BuildSize = "tiny" | "small" | "medium" | "large" | "epic";
+
+export type BiomeId =
+  | "forest"
+  | "plains"
+  | "coast"
+  | "mountain"
+  | "desert"
+  | "snowy"
+  | "swamp"
+  | "jungle";
+
+export type PurposeId =
+  | "starter-home"
+  | "farming"
+  | "defense"
+  | "storage"
+  | "luxury"
+  | "redstone"
+  | "enchanting";
 
 export type PetType =
   | "wolf"
@@ -24,18 +45,33 @@ export interface ThemeMeta {
   accent: string;
 }
 
+export interface BiomeMeta {
+  id: BiomeId;
+  label: string;
+  description: string;
+}
+
+export interface PurposeMeta {
+  id: PurposeId;
+  label: string;
+  description: string;
+}
+
 export interface BuildIdea {
   id: string;
   title: string;
   summary: string;
   themes: ThemeId[];
   sizes: BuildSize[];
+  biomes: BiomeId[];
+  purposes: PurposeId[];
 }
 
 export interface MaterialSet {
   id: string;
   label: string;
   themes: ThemeId[];
+  biomes: BiomeId[];
   walls: string[];
   floors: string[];
   roofs: string[];
@@ -46,18 +82,22 @@ export interface InteriorIdea {
   label: string;
   themes: ThemeId[];
   sizes: BuildSize[];
+  purposes: PurposeId[];
 }
 
 export interface PetProfile {
   id: PetType;
   label: string;
   themes: ThemeId[];
+  biomes: BiomeId[];
   nameIdeas: string[];
 }
 
 export interface GeneratorOptions {
   theme?: ThemeId;
   size?: BuildSize;
+  biome?: BiomeId;
+  purpose?: PurposeId;
   seed?: number;
 }
 
@@ -67,6 +107,10 @@ export interface GeneratedBuild {
   theme: ThemeId;
   themeLabel: string;
   size: BuildSize;
+  biome: BiomeId;
+  biomeLabel: string;
+  purpose: PurposeId;
+  purposeLabel: string;
   buildIdea: string;
   buildSummary: string;
   materials: {
@@ -80,6 +124,7 @@ export interface GeneratedBuild {
     label: string;
     nameSuggestions: string[];
   };
+  layoutPlan: string[];
+  visualMockup: string[];
+  buildSteps: string[];
 }
-
-export type FavoriteBuild = GeneratedBuild;
