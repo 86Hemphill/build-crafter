@@ -31,7 +31,8 @@ The app now includes an optional AI remix seam through a Netlify function at [`n
 To turn it on in Netlify:
 
 - Add `OPENAI_API_KEY`
-- Optional: add `OPENAI_REMIX_MODEL` if you want a model other than the default
+- Optional: add `OPENAI_REMIX_MODEL` if you want a model other than the default. The app now defaults to `gpt-5-mini` for faster Netlify function responses.
+- Optional: add `OPENAI_REMIX_TIMEOUT_MS` to tune how quickly the function should fail fast. Default is `12000`.
 
 Without those env vars, the app still works normally and the remix button simply shows a setup message.
 
