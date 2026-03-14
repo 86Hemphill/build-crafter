@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { MaterialBlockIcon } from "../components/MaterialBlockIcon";
 import { PetIcon } from "../components/PetIcon";
 import { SceneDirectionPanel } from "../components/SceneDirectionPanel";
 import { requestAiRemix } from "../utils/aiRemix";
+import { clearCachedRemix, loadCachedRemix, saveCachedRemix } from "../utils/remixCache";
 import { buildScenePrompt } from "../utils/scenePrompt";
 import { findPlanById } from "../utils/plans";
 import type { AiRemixResult } from "../types/build";
@@ -52,6 +53,7 @@ export function BuildPlanPage() {
   const [remix, setRemix] = useState<AiRemixResult | null>(null);
   const [remixError, setRemixError] = useState<string | null>(null);
   const [isLoadingRemix, setIsLoadingRemix] = useState(false);
+  const [remixSource, setRemixSource] = useState<"fresh" | "saved" | null>(null);
 
   if (!plan) {
     return (
@@ -71,17 +73,34 @@ export function BuildPlanPage() {
   const currentPlan = plan;
   const petNote = petNotes[currentPlan.pet.type];
 
+  useEffect(() => {
+    const cachedRemix = loadCachedRemix(currentPlan.id);
+    setRemix(cachedRemix);
+    setRemixSource(cachedRemix ? "saved" : null);
+    setRemixError(null);
+    setIsLoadingRemix(false);
+  }, [currentPlan.id]);
+
   async function handleRemix() {
     try {
       setIsLoadingRemix(true);
       setRemixError(null);
       const result = await requestAiRemix(currentPlan);
       setRemix(result);
+      setRemixSource("fresh");
+      saveCachedRemix(currentPlan.id, result);
     } catch (error) {
       setRemixError(error instanceof Error ? error.message : "AI remix could not load.");
     } finally {
       setIsLoadingRemix(false);
     }
+  }
+
+  function handleClearRemix() {
+    clearCachedRemix(currentPlan.id);
+    setRemix(null);
+    setRemixSource(null);
+    setRemixError(null);
   }
 
   return (
@@ -189,44 +208,85 @@ export function BuildPlanPage() {
 
         <section className="panel guide-column">
           <p className="eyebrow">AI Remix</p>
-          <h2>Try an LLM remix</h2>
+          <h2>Try an AI remix</h2>
           <p className="hero-text">
-            This keeps the main build fixed and lets AI add a fresh twist on top.
+            This keeps your main build the same and adds a fresh twist on top.
           </p>
-          <button className="secondary-button" onClick={handleRemix} type="button">
-            {isLoadingRemix ? "Thinking..." : "Try AI Remix"}
-          </button>
+          <div className="ai-actions">
+            <button
+              className="secondary-button"
+              disabled={isLoadingRemix}
+              onClick={handleRemix}
+              type="button"
+            >
+              {isLoadingRemix ? "Dreaming up ideas..." : remix ? "Try Another Remix" : "Try AI Remix"}
+            </button>
+            {remix ? (
+              <button className="ghost-button" onClick={handleClearRemix} type="button">
+                Clear Saved Remix
+              </button>
+            ) : null}
+          </div>
+          <p className="ai-status" aria-live="polite">
+            {isLoadingRemix
+              ? "The AI is mixing in a few extra ideas."
+              : remixSource === "saved"
+                ? "Showing the last remix you made for this build."
+                : remixSource === "fresh"
+                  ? "Fresh remix ready."
+                  : "No remix yet. Tap the button when you want a new spin."}
+          </p>
           {remixError ? <p className="ai-note">{remixError}</p> : null}
           {remix ? (
-            <div className="ai-remix-card">
-              <h3>{remix.title}</h3>
-              <p>{remix.summary}</p>
-              <h4>Layout boost</h4>
-              <ul className="guide-list">
-                {remix.layoutBoost.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-              <h4>Style boost</h4>
-              <ul className="tag-list">
-                {remix.styleBoost.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-              <h4>Extra touches</h4>
-              <ul className="tag-list">
-                {remix.extraTouches.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-              <p><strong>Pet moment:</strong> {remix.petMoment}</p>
+            <div className="ai-compare-grid">
+              <div className="ai-remix-card">
+                <p className="eyebrow">Original Plan</p>
+                <h3>{currentPlan.buildIdea}</h3>
+                <p>{currentPlan.buildSummary}</p>
+                <h4>Base layout</h4>
+                <ul className="guide-list">
+                  {currentPlan.layoutPlan.slice(0, 3).map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+                <h4>Base look</h4>
+                <ul className="tag-list">
+                  {currentPlan.visualMockup.slice(0, 3).map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+              <div className="ai-remix-card ai-remix-card-featured">
+                <p className="eyebrow">{remixSource === "saved" ? "Saved Remix" : "Fresh Remix"}</p>
+                <h3>{remix.title}</h3>
+                <p>{remix.summary}</p>
+                <h4>Layout boost</h4>
+                <ul className="guide-list">
+                  {remix.layoutBoost.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+                <h4>Style boost</h4>
+                <ul className="tag-list">
+                  {remix.styleBoost.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+                <h4>Extra touches</h4>
+                <ul className="tag-list">
+                  {remix.extraTouches.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+                <p><strong>Pet moment:</strong> {remix.petMoment}</p>
+              </div>
             </div>
           ) : null}
           <div className="ai-remix-card">
             <h3>Future scene image</h3>
             <p>
               We removed the old hand-drawn scene. The app now keeps a scene brief so AI
-              can generate this later at better quality.
+              can make this later at better quality.
             </p>
             <details className="scene-prompt-preview">
               <summary>Preview future image prompt</summary>

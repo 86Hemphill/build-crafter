@@ -27,6 +27,70 @@ const REMIX_SCHEMA = {
 
 const DEFAULT_MODEL = process.env.OPENAI_REMIX_MODEL || "gpt-5-mini";
 const REQUEST_TIMEOUT_MS = Number(process.env.OPENAI_REMIX_TIMEOUT_MS || 12000);
+const COOLDOWN_MS = Number(process.env.OPENAI_REMIX_COOLDOWN_MS || 4000);
+const remixCooldowns = new Map();
+
+function logRemixEvent(stage, data) {
+  console.log(
+    JSON.stringify({
+      source: "remix-build",
+      stage,
+      ...data
+    })
+  );
+}
+
+function createFingerprint(build) {
+  return JSON.stringify({
+    buildIdea: build?.buildIdea,
+    themeLabel: build?.themeLabel,
+    biomeLabel: build?.biomeLabel,
+    purposeLabel: build?.purposeLabel,
+    size: build?.size,
+    pet: build?.pet?.label
+  });
+}
+
+function isStringArray(value) {
+  return Array.isArray(value) && value.every((item) => typeof item === "string" && item.trim().length > 0);
+}
+
+function isValidIncomingBuild(build) {
+  return Boolean(
+    build &&
+      typeof build === "object" &&
+      typeof build.buildIdea === "string" &&
+      typeof build.buildSummary === "string" &&
+      typeof build.themeLabel === "string" &&
+      typeof build.biomeLabel === "string" &&
+      typeof build.purposeLabel === "string" &&
+      typeof build.size === "string" &&
+      build.materials &&
+      typeof build.materials.walls === "string" &&
+      typeof build.materials.floor === "string" &&
+      typeof build.materials.roof === "string" &&
+      isStringArray(build.interiorIdeas) &&
+      build.pet &&
+      typeof build.pet.label === "string" &&
+      isStringArray(build.pet.nameSuggestions)
+  );
+}
+
+function isValidRemix(remix) {
+  return Boolean(
+    remix &&
+      typeof remix === "object" &&
+      typeof remix.title === "string" &&
+      remix.title.trim().length > 0 &&
+      typeof remix.summary === "string" &&
+      remix.summary.trim().length > 0 &&
+      isStringArray(remix.layoutBoost) &&
+      isStringArray(remix.styleBoost) &&
+      isStringArray(remix.extraTouches) &&
+      typeof remix.petMoment === "string" &&
+      remix.petMoment.trim().length > 0
+  );
+}
 
 function findJsonText(value) {
   if (!value) {
@@ -162,6 +226,8 @@ ${JSON.stringify(safeBuild, null, 2)}`
 }
 
 exports.handler = async function handler(event) {
+  const startedAt = Date.now();
+
   if (event.httpMethod !== "POST") {
     return {
       statusCode: 405,
@@ -180,10 +246,38 @@ exports.handler = async function handler(event) {
 
   try {
     const build = JSON.parse(event.body || "{}");
+    if (!isValidIncomingBuild(build)) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({
+          error: "Build data was missing a few key details."
+        })
+      };
+    }
+
+    const fingerprint = createFingerprint(build);
+    const lastSeenAt = remixCooldowns.get(fingerprint) || 0;
+    if (Date.now() - lastSeenAt < COOLDOWN_MS) {
+      return {
+        statusCode: 429,
+        body: JSON.stringify({
+          error: "That remix button is warming up. Try again in a few seconds."
+        })
+      };
+    }
+
+    remixCooldowns.set(fingerprint, Date.now());
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
     try {
+      logRemixEvent("request_started", {
+        model: DEFAULT_MODEL,
+        cooldownMs: COOLDOWN_MS,
+        timeoutMs: REQUEST_TIMEOUT_MS,
+        buildIdea: build.buildIdea
+      });
+
       const response = await fetch("https://api.openai.com/v1/responses", {
         method: "POST",
         headers: {
@@ -213,6 +307,11 @@ exports.handler = async function handler(event) {
       const payload = await response.json();
 
       if (!response.ok) {
+        logRemixEvent("openai_error", {
+          durationMs: Date.now() - startedAt,
+          status: response.status,
+          buildIdea: build.buildIdea
+        });
         return {
           statusCode: response.status,
           body: JSON.stringify({
@@ -222,6 +321,23 @@ exports.handler = async function handler(event) {
       }
 
       const remix = parseRemixPayload(payload);
+      if (!isValidRemix(remix)) {
+        logRemixEvent("invalid_remix_shape", {
+          durationMs: Date.now() - startedAt,
+          buildIdea: build.buildIdea
+        });
+        return {
+          statusCode: 502,
+          body: JSON.stringify({
+            error: "The AI remix came back in an unexpected shape."
+          })
+        };
+      }
+
+      logRemixEvent("request_succeeded", {
+        durationMs: Date.now() - startedAt,
+        buildIdea: build.buildIdea
+      });
 
       return {
         statusCode: 200,
@@ -230,10 +346,14 @@ exports.handler = async function handler(event) {
         })
       };
     } finally {
+      setTimeout(() => remixCooldowns.delete(fingerprint), COOLDOWN_MS);
       clearTimeout(timeoutId);
     }
   } catch (error) {
     if (error instanceof Error && error.name === "AbortError") {
+      logRemixEvent("request_timed_out", {
+        durationMs: Date.now() - startedAt
+      });
       return {
         statusCode: 504,
         body: JSON.stringify({
@@ -243,6 +363,10 @@ exports.handler = async function handler(event) {
       };
     }
 
+    logRemixEvent("request_failed", {
+      durationMs: Date.now() - startedAt,
+      message: error instanceof Error ? error.message : "Unexpected AI remix error."
+    });
     return {
       statusCode: 500,
       body: JSON.stringify({
