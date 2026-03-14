@@ -124,6 +124,14 @@ export interface GeneratedBuild {
     label: string;
     nameSuggestions: string[];
   };
+  scene: {
+    title: string;
+    moodLine: string;
+    sky: string;
+    ground: string;
+    accent: string;
+    props: string[];
+  };
   layoutPlan: string[];
   visualMockup: string[];
   buildSteps: string[];

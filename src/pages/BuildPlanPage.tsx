@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { MaterialBlockIcon } from "../components/MaterialBlockIcon";
 import { PetIcon } from "../components/PetIcon";
+import { ScenePanel } from "../components/ScenePanel";
 import { findPlanById } from "../utils/plans";
 
 const petNotes: Record<string, { vibe: string; bestSpot: string; detail: string }> = {
@@ -95,6 +96,8 @@ export function BuildPlanPage() {
           <p>Use repeated shapes and matching details so the build feels tied together.</p>
         </div>
       </section>
+
+      <ScenePanel build={plan} />
 
       <main className="guide-layout">
         <section className="panel guide-column">

@@ -201,6 +201,94 @@ function buildStepList(buildIdea: string, purposeLabel: string): string[] {
   ];
 }
 
+function buildSceneDetails(
+  themeLabel: string,
+  biome: BiomeId,
+  biomeLabel: string,
+  purposeLabel: string
+) {
+  const sceneByBiome: Record<
+    BiomeId,
+    { title: string; moodLine: string; sky: string; ground: string; accent: string; props: string[] }
+  > = {
+    forest: {
+      title: "Forest Edge View",
+      moodLine: `A ${themeLabel.toLowerCase()} build tucked between trees and warm lights.`,
+      sky: "#91c9ff",
+      ground: "#55753f",
+      accent: "#3c5a2d",
+      props: ["pine", "pine", "lantern", "shrub"]
+    },
+    plains: {
+      title: "Open Plains View",
+      moodLine: `A ${purposeLabel.toLowerCase()} build with plenty of breathing room around it.`,
+      sky: "#97d2ff",
+      ground: "#7cab51",
+      accent: "#d3c27a",
+      props: ["shrub", "hay", "fence", "shrub"]
+    },
+    coast: {
+      title: "Coastal Lookout",
+      moodLine: `A ${themeLabel.toLowerCase()} build with a breeze, water, and a strong silhouette.`,
+      sky: "#8fd7ff",
+      ground: "#4e8f7a",
+      accent: "#2d6ca1",
+      props: ["dock", "dock", "lantern", "shrub"]
+    },
+    mountain: {
+      title: "Mountain Shelf View",
+      moodLine: `A bold build perched high with a big shape and a clear lookout.`,
+      sky: "#8db9ff",
+      ground: "#6f7a7f",
+      accent: "#c5d8e8",
+      props: ["peak", "peak", "pine", "lantern"]
+    },
+    desert: {
+      title: "Desert Courtyard View",
+      moodLine: `A bright build framed by sand, shade, and strong warm colors.`,
+      sky: "#f0c88c",
+      ground: "#d0a160",
+      accent: "#b96535",
+      props: ["cactus", "arch", "arch", "lantern"]
+    },
+    snowy: {
+      title: "Snowfield View",
+      moodLine: `A cozy-looking build standing out against cool snow and pale light.`,
+      sky: "#c2ddff",
+      ground: "#dfe8f4",
+      accent: "#87a3bf",
+      props: ["snow-pine", "snow-pine", "lantern", "peak"]
+    },
+    swamp: {
+      title: "Swamp Boardwalk View",
+      moodLine: `A moody build with moss, water, and glowing little details.`,
+      sky: "#83b6a3",
+      ground: "#5f6f3d",
+      accent: "#355146",
+      props: ["mushroom", "shrub", "dock", "lantern"]
+    },
+    jungle: {
+      title: "Jungle Canopy View",
+      moodLine: `A lively build hidden inside thick leaves and bold color.`,
+      sky: "#8ed1a8",
+      ground: "#4c7b3b",
+      accent: "#2f5831",
+      props: ["palm", "palm", "vine-post", "flower"]
+    }
+  };
+
+  const scene = sceneByBiome[biome];
+
+  return {
+    title: scene.title,
+    moodLine: `${scene.moodLine} Perfect for a ${biomeLabel.toLowerCase()} biome.`,
+    sky: scene.sky,
+    ground: scene.ground,
+    accent: scene.accent,
+    props: scene.props
+  };
+}
+
 export function createGeneratedBuild(options: GeneratorOptions = {}): GeneratedBuild {
   const seed = resolveSeed(options.seed);
   const random = createRng(seed);
@@ -236,6 +324,7 @@ export function createGeneratedBuild(options: GeneratorOptions = {}): GeneratedB
       label: pet.label,
       nameSuggestions: chooseNames(pet.nameIdeas, random)
     },
+    scene: buildSceneDetails(themeMeta.label, biome, biomeMeta.label, purposeMeta.label),
     layoutPlan: buildLayoutPlan(size, purposeMeta.label, biomeMeta.label),
     visualMockup: buildVisualMockup(themeMeta.label, biomeMeta.label, purposeMeta.label),
     buildSteps: buildStepList(idea.title, purposeMeta.label)
