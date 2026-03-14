@@ -23,3 +23,14 @@ This repo includes a [`netlify.toml`](/c:/Users/lhemphill/CraftBuilder/craft-bui
 - Publish directory: `dist`
 
 If you connect the GitHub repo in Netlify, it should pick these settings up automatically.
+
+## Optional AI Remix
+
+The app now includes an optional AI remix seam through a Netlify function at [`netlify/functions/remix-build.js`](/c:/Users/lhemphill/CraftBuilder/craft-builder/netlify/functions/remix-build.js).
+
+To turn it on in Netlify:
+
+- Add `OPENAI_API_KEY`
+- Optional: add `OPENAI_REMIX_MODEL` if you want a model other than the default
+
+Without those env vars, the app still works normally and the remix button simply shows a setup message.

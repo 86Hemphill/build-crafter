@@ -583,6 +583,24 @@ button {
   margin-bottom: 0.5rem;
 }
 
+.ai-note {
+  color: var(--text-soft);
+  margin-top: 0.8rem;
+}
+
+.ai-remix-card {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.ai-remix-card h3,
+.ai-remix-card h4 {
+  margin-bottom: 0.45rem;
+}
+
 .filter-panel {
   animation: rise-in 700ms ease both;
 }

@@ -145,3 +145,12 @@ export interface GeneratedBuild {
   visualMockup: string[];
   buildSteps: string[];
 }
+
+export interface AiRemixResult {
+  title: string;
+  summary: string;
+  layoutBoost: string[];
+  styleBoost: string[];
+  extraTouches: string[];
+  petMoment: string;
+}

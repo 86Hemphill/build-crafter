@@ -1,8 +1,11 @@
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { MaterialBlockIcon } from "../components/MaterialBlockIcon";
 import { PetIcon } from "../components/PetIcon";
 import { ScenePanel } from "../components/ScenePanel";
+import { requestAiRemix } from "../utils/aiRemix";
 import { findPlanById } from "../utils/plans";
+import type { AiRemixResult } from "../types/build";
 
 const petNotes: Record<string, { vibe: string; bestSpot: string; detail: string }> = {
   wolf: {
@@ -45,6 +48,9 @@ const petNotes: Record<string, { vibe: string; bestSpot: string; detail: string 
 export function BuildPlanPage() {
   const { planId = "" } = useParams();
   const plan = findPlanById(planId);
+  const [remix, setRemix] = useState<AiRemixResult | null>(null);
+  const [remixError, setRemixError] = useState<string | null>(null);
+  const [isLoadingRemix, setIsLoadingRemix] = useState(false);
 
   if (!plan) {
     return (
@@ -61,21 +67,35 @@ export function BuildPlanPage() {
     );
   }
 
-  const petNote = petNotes[plan.pet.type];
+  const currentPlan = plan;
+  const petNote = petNotes[currentPlan.pet.type];
+
+  async function handleRemix() {
+    try {
+      setIsLoadingRemix(true);
+      setRemixError(null);
+      const result = await requestAiRemix(currentPlan);
+      setRemix(result);
+    } catch (error) {
+      setRemixError(error instanceof Error ? error.message : "AI remix could not load.");
+    } finally {
+      setIsLoadingRemix(false);
+    }
+  }
 
   return (
     <div className="app-shell app-shell-guide">
       <header className="guide-header panel">
         <div>
           <p className="eyebrow">Build Guide</p>
-          <h1>{plan.buildIdea}</h1>
-          <p className="hero-text">{plan.buildSummary}</p>
+          <h1>{currentPlan.buildIdea}</h1>
+          <p className="hero-text">{currentPlan.buildSummary}</p>
         </div>
         <div className="pill-row">
-          <span className={`pill pill-theme pill-${plan.theme}`}>{plan.themeLabel}</span>
-          <span className="pill">{plan.biomeLabel}</span>
-          <span className="pill">{plan.purposeLabel}</span>
-          <span className="pill">{plan.size}</span>
+          <span className={`pill pill-theme pill-${currentPlan.theme}`}>{currentPlan.themeLabel}</span>
+          <span className="pill">{currentPlan.biomeLabel}</span>
+          <span className="pill">{currentPlan.purposeLabel}</span>
+          <span className="pill">{currentPlan.size}</span>
         </div>
       </header>
 
@@ -83,21 +103,21 @@ export function BuildPlanPage() {
         <div className="overview-card">
           <p className="eyebrow">Blueprint Card</p>
           <h2>Big idea</h2>
-          <p>{plan.buildSummary}</p>
+          <p>{currentPlan.buildSummary}</p>
         </div>
         <div className="overview-card">
           <p className="eyebrow">Footprint</p>
-          <h2>{plan.size}</h2>
-          <p>Best for a {plan.biomeLabel.toLowerCase()} setting with a {plan.purposeLabel.toLowerCase()} focus.</p>
+          <h2>{currentPlan.size}</h2>
+          <p>Best for a {currentPlan.biomeLabel.toLowerCase()} setting with a {currentPlan.purposeLabel.toLowerCase()} focus.</p>
         </div>
         <div className="overview-card">
           <p className="eyebrow">Main vibe</p>
-          <h2>{plan.themeLabel}</h2>
+          <h2>{currentPlan.themeLabel}</h2>
           <p>Use repeated shapes and matching details so the build feels tied together.</p>
         </div>
       </section>
 
-      <ScenePanel build={plan} />
+      <ScenePanel build={currentPlan} />
 
       <main className="guide-layout">
         <section className="panel guide-column">
@@ -109,32 +129,32 @@ export function BuildPlanPage() {
               <p>Walls</p>
             </div>
             <div>
-              <MaterialBlockIcon material={plan.materials.floor} />
+              <MaterialBlockIcon material={currentPlan.materials.floor} />
               <p>Floor</p>
             </div>
             <div>
-              <MaterialBlockIcon material={plan.materials.roof} />
+              <MaterialBlockIcon material={currentPlan.materials.roof} />
               <p>Roof</p>
             </div>
           </div>
           <dl className="favorite-meta">
             <div>
               <dt>Walls</dt>
-              <dd>{plan.materials.walls}</dd>
+              <dd>{currentPlan.materials.walls}</dd>
             </div>
             <div>
               <dt>Floor</dt>
-              <dd>{plan.materials.floor}</dd>
+              <dd>{currentPlan.materials.floor}</dd>
             </div>
             <div>
               <dt>Roof</dt>
-              <dd>{plan.materials.roof}</dd>
+              <dd>{currentPlan.materials.roof}</dd>
             </div>
             <div>
               <dt>Pet</dt>
               <dd className="pet-line">
-                <PetIcon pet={plan.pet.type} size={56} />
-                <span>{plan.pet.label}</span>
+                <PetIcon pet={currentPlan.pet.type} size={56} />
+                <span>{currentPlan.pet.label}</span>
               </dd>
             </div>
           </dl>
@@ -144,7 +164,7 @@ export function BuildPlanPage() {
           <p className="eyebrow">Layout</p>
           <h2>How to map it out</h2>
           <div className="guide-steps">
-            {plan.layoutPlan.map((step, index) => (
+            {currentPlan.layoutPlan.map((step, index) => (
               <article className="step-card" key={step}>
                 <span className="step-number">0{index + 1}</span>
                 <p>{step}</p>
@@ -157,7 +177,7 @@ export function BuildPlanPage() {
           <p className="eyebrow">Visual Mockup</p>
           <h2>How it should look</h2>
           <div className="guide-steps">
-            {plan.visualMockup.map((note, index) => (
+            {currentPlan.visualMockup.map((note, index) => (
               <article className="step-card" key={note}>
                 <span className="step-number">0{index + 1}</span>
                 <p>{note}</p>
@@ -167,10 +187,47 @@ export function BuildPlanPage() {
         </section>
 
         <section className="panel guide-column">
+          <p className="eyebrow">AI Remix</p>
+          <h2>Try an LLM remix</h2>
+          <p className="hero-text">
+            This keeps the main build fixed and lets AI add a fresh twist on top.
+          </p>
+          <button className="secondary-button" onClick={handleRemix} type="button">
+            {isLoadingRemix ? "Thinking..." : "Try AI Remix"}
+          </button>
+          {remixError ? <p className="ai-note">{remixError}</p> : null}
+          {remix ? (
+            <div className="ai-remix-card">
+              <h3>{remix.title}</h3>
+              <p>{remix.summary}</p>
+              <h4>Layout boost</h4>
+              <ul className="guide-list">
+                {remix.layoutBoost.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+              <h4>Style boost</h4>
+              <ul className="tag-list">
+                {remix.styleBoost.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+              <h4>Extra touches</h4>
+              <ul className="tag-list">
+                {remix.extraTouches.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+              <p><strong>Pet moment:</strong> {remix.petMoment}</p>
+            </div>
+          ) : null}
+        </section>
+
+        <section className="panel guide-column">
           <p className="eyebrow">Pet Buddy</p>
-          <h2>{plan.pet.label}</h2>
+          <h2>{currentPlan.pet.label}</h2>
           <div className="pet-showcase">
-            <PetIcon pet={plan.pet.type} size={96} />
+            <PetIcon pet={currentPlan.pet.type} size={96} />
             <div>
               <p className="pet-badge">{petNote.vibe}</p>
               <p><strong>Best spot:</strong> {petNote.bestSpot}</p>
@@ -179,7 +236,7 @@ export function BuildPlanPage() {
           </div>
           <h3>Name ideas</h3>
           <ul className="tag-list">
-            {plan.pet.nameSuggestions.map((name) => (
+            {currentPlan.pet.nameSuggestions.map((name) => (
               <li key={name}>{name}</li>
             ))}
           </ul>
@@ -189,13 +246,13 @@ export function BuildPlanPage() {
           <p className="eyebrow">Build Steps</p>
           <h2>Good order to build it</h2>
           <ol className="guide-list guide-list-numbered">
-            {plan.buildSteps.map((step) => (
+            {currentPlan.buildSteps.map((step) => (
               <li key={step}>{step}</li>
             ))}
           </ol>
           <h3>Interior ideas</h3>
           <ul className="tag-list">
-            {plan.interiorIdeas.map((idea) => (
+            {currentPlan.interiorIdeas.map((idea) => (
               <li key={idea}>{idea}</li>
             ))}
           </ul>
