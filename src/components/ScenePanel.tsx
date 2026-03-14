@@ -8,6 +8,63 @@ function renderProp(prop: string, index: number) {
   const x = 24 + index * 42;
 
   switch (prop) {
+    case "pet-wolf":
+      return (
+        <g key={`${prop}-${index}`} transform={`translate(${x} 92)`}>
+          <rect x="4" y="6" width="18" height="10" fill="#aeb4ba" />
+          <rect x="0" y="8" width="8" height="8" fill="#8b9197" />
+          <rect x="16" y="0" width="4" height="4" fill="#7d838a" />
+          <rect x="8" y="16" width="4" height="8" fill="#7d838a" />
+          <rect x="18" y="16" width="4" height="8" fill="#7d838a" />
+        </g>
+      );
+    case "pet-cat":
+      return (
+        <g key={`${prop}-${index}`} transform={`translate(${x} 92)`}>
+          <rect x="6" y="6" width="14" height="10" fill="#b97b47" />
+          <rect x="4" y="2" width="4" height="4" fill="#7a5336" />
+          <rect x="18" y="2" width="4" height="4" fill="#7a5336" />
+          <rect x="20" y="8" width="4" height="14" fill="#7a5336" />
+        </g>
+      );
+    case "pet-horse":
+      return (
+        <g key={`${prop}-${index}`} transform={`translate(${x} 88)`}>
+          <rect x="4" y="8" width="18" height="10" fill="#93633d" />
+          <rect x="18" y="0" width="8" height="12" fill="#6d472b" />
+          <rect x="4" y="18" width="4" height="10" fill="#6d472b" />
+          <rect x="16" y="18" width="4" height="10" fill="#6d472b" />
+        </g>
+      );
+    case "pet-donkey":
+    case "pet-mule":
+      return (
+        <g key={`${prop}-${index}`} transform={`translate(${x} 88)`}>
+          <rect x="4" y="10" width="18" height="10" fill="#88766c" />
+          <rect x="18" y="2" width="8" height="12" fill="#64554f" />
+          <rect x="18" y="0" width="2" height="8" fill="#3d3430" />
+          <rect x="24" y="0" width="2" height="8" fill="#3d3430" />
+        </g>
+      );
+    case "pet-parrot":
+      return (
+        <g key={`${prop}-${index}`} transform={`translate(${x} 90)`}>
+          <rect x="10" y="4" width="10" height="14" fill="#50b95f" />
+          <rect x="6" y="8" width="6" height="10" fill="#2d6ab3" />
+          <rect x="16" y="2" width="4" height="4" fill="#f2cf4e" />
+          <rect x="12" y="18" width="2" height="8" fill="#1f2d3a" />
+          <rect x="16" y="18" width="2" height="8" fill="#1f2d3a" />
+        </g>
+      );
+    case "pet-llama":
+      return (
+        <g key={`${prop}-${index}`} transform={`translate(${x} 86)`}>
+          <rect x="8" y="2" width="10" height="16" fill="#eadfcf" />
+          <rect x="4" y="16" width="18" height="10" fill="#eadfcf" />
+          <rect x="2" y="10" width="4" height="10" fill="#d96f8b" />
+          <rect x="20" y="10" width="4" height="10" fill="#d96f8b" />
+        </g>
+      );
     case "pine":
     case "snow-pine":
       return (
@@ -109,23 +166,26 @@ export function ScenePanel({ build }: ScenePanelProps) {
         <svg viewBox="0 0 260 170" className="scene-svg">
           <defs>
             <linearGradient id={`sky-${build.id}`} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor={build.scene.sky} />
-              <stop offset="100%" stopColor="#e6f3ff" />
+              <stop offset="0%" stopColor={build.scene.skyTop} />
+              <stop offset="100%" stopColor={build.scene.skyBottom} />
             </linearGradient>
           </defs>
           <rect width="260" height="170" fill={`url(#sky-${build.id})`} />
           <rect y="106" width="260" height="64" fill={build.scene.ground} />
-          <rect y="100" width="260" height="8" fill={build.scene.accent} />
+          <rect y="100" width="260" height="8" fill={build.scene.groundEdge} />
 
           <g transform="translate(84 48)">
-            <rect x="18" y="44" width="60" height="42" fill="#7b5837" />
-            <rect x="34" y="58" width="12" height="28" fill="#4b3320" />
-            <rect x="54" y="58" width="14" height="12" fill="#f7dfa0" />
-            <polygon points="10,44 48,18 88,44" fill="#59422b" />
-            <rect x="22" y="30" width="6" height="14" fill="#5f432b" />
+            <rect x="18" y="44" width="60" height="42" fill={build.scene.structure.walls} />
+            <rect x="34" y="58" width="12" height="28" fill={build.scene.structure.door} />
+            <rect x="54" y="58" width="14" height="12" fill={build.scene.structure.window} />
+            <polygon points="10,44 48,18 88,44" fill={build.scene.structure.roof} />
+            <rect x="22" y="30" width="6" height="14" fill={build.scene.structure.trim} />
+            <rect x="14" y="44" width="4" height="42" fill={build.scene.structure.trim} />
+            <rect x="78" y="44" width="4" height="42" fill={build.scene.structure.trim} />
           </g>
 
           {build.scene.props.map((prop, index) => renderProp(prop, index))}
+          {renderProp(build.scene.petProp, 2)}
         </svg>
       </div>
     </section>

@@ -201,91 +201,180 @@ function buildStepList(buildIdea: string, purposeLabel: string): string[] {
   ];
 }
 
+function materialColor(material: string, role: "walls" | "roof" | "floor" | "trim") {
+  const normalized = material.toLowerCase();
+
+  if (normalized.includes("weathered copper")) {
+    return role === "roof"
+      ? "#4a7e74"
+      : role === "trim"
+        ? "#8ec5b2"
+        : "#5f9b8d";
+  }
+
+  if (normalized.includes("copper")) {
+    return role === "roof"
+      ? "#8a5635"
+      : role === "trim"
+        ? "#d89a69"
+        : "#b16c45";
+  }
+
+  if (normalized.includes("red sandstone")) return "#c46e40";
+  if (normalized.includes("sandstone")) return "#d3b074";
+  if (normalized.includes("terracotta")) {
+    if (normalized.includes("green")) return "#5d8c61";
+    if (normalized.includes("cyan")) return "#63b6bb";
+    if (normalized.includes("white")) return "#ddd8cb";
+    if (normalized.includes("orange")) return "#c97c39";
+    if (normalized.includes("brown")) return "#8d5b39";
+    return "#b77d59";
+  }
+  if (normalized.includes("quartz") || normalized.includes("calcite") || normalized.includes("diorite")) {
+    return role === "trim" ? "#ffffff" : "#e8e2d7";
+  }
+  if (normalized.includes("glass")) return "#bfdde2";
+  if (normalized.includes("moss") || normalized.includes("leaf")) return "#5f8d4e";
+  if (normalized.includes("mud")) return "#84644f";
+  if (normalized.includes("dirt")) return "#7a5c3b";
+  if (normalized.includes("deepslate")) return "#5f646c";
+  if (normalized.includes("stone") || normalized.includes("cobblestone") || normalized.includes("andesite")) {
+    return "#8b9199";
+  }
+  if (normalized.includes("cherry")) return "#c58d8f";
+  if (normalized.includes("birch")) return "#d6bd8f";
+  if (normalized.includes("mangrove")) return "#8e5e4d";
+  if (normalized.includes("jungle")) return "#b58a57";
+  if (normalized.includes("dark oak")) return "#5a402d";
+  if (normalized.includes("oak")) return "#a97b4f";
+  if (normalized.includes("spruce")) return "#7c5737";
+  if (normalized.includes("bamboo")) return "#c8b66a";
+  return role === "roof" ? "#5f432b" : "#8d7d6f";
+}
+
 function buildSceneDetails(
   themeLabel: string,
   biome: BiomeId,
   biomeLabel: string,
-  purposeLabel: string
+  purposeLabel: string,
+  walls: string,
+  roof: string,
+  floor: string,
+  petType: string
 ) {
   const sceneByBiome: Record<
     BiomeId,
-    { title: string; moodLine: string; sky: string; ground: string; accent: string; props: string[] }
+    {
+      title: string;
+      moodLine: string;
+      skyTop: string;
+      skyBottom: string;
+      ground: string;
+      groundEdge: string;
+      props: string[];
+    }
   > = {
     forest: {
       title: "Forest Edge View",
       moodLine: `A ${themeLabel.toLowerCase()} build tucked between trees and warm lights.`,
-      sky: "#91c9ff",
+      skyTop: "#88c2f6",
+      skyBottom: "#dff0ff",
       ground: "#55753f",
-      accent: "#3c5a2d",
+      groundEdge: "#3c5a2d",
       props: ["pine", "pine", "lantern", "shrub"]
     },
     plains: {
       title: "Open Plains View",
       moodLine: `A ${purposeLabel.toLowerCase()} build with plenty of breathing room around it.`,
-      sky: "#97d2ff",
+      skyTop: "#8fccff",
+      skyBottom: "#e7f6ff",
       ground: "#7cab51",
-      accent: "#d3c27a",
+      groundEdge: "#d3c27a",
       props: ["shrub", "hay", "fence", "shrub"]
     },
     coast: {
       title: "Coastal Lookout",
       moodLine: `A ${themeLabel.toLowerCase()} build with a breeze, water, and a strong silhouette.`,
-      sky: "#8fd7ff",
+      skyTop: "#89d1ff",
+      skyBottom: "#e4fbff",
       ground: "#4e8f7a",
-      accent: "#2d6ca1",
+      groundEdge: "#2d6ca1",
       props: ["dock", "dock", "lantern", "shrub"]
     },
     mountain: {
       title: "Mountain Shelf View",
       moodLine: `A bold build perched high with a big shape and a clear lookout.`,
-      sky: "#8db9ff",
+      skyTop: "#8bb6f0",
+      skyBottom: "#edf5ff",
       ground: "#6f7a7f",
-      accent: "#c5d8e8",
+      groundEdge: "#c5d8e8",
       props: ["peak", "peak", "pine", "lantern"]
     },
     desert: {
       title: "Desert Courtyard View",
       moodLine: `A bright build framed by sand, shade, and strong warm colors.`,
-      sky: "#f0c88c",
+      skyTop: "#efc486",
+      skyBottom: "#fff2cf",
       ground: "#d0a160",
-      accent: "#b96535",
+      groundEdge: "#b96535",
       props: ["cactus", "arch", "arch", "lantern"]
     },
     snowy: {
       title: "Snowfield View",
       moodLine: `A cozy-looking build standing out against cool snow and pale light.`,
-      sky: "#c2ddff",
+      skyTop: "#c3ddff",
+      skyBottom: "#f5fbff",
       ground: "#dfe8f4",
-      accent: "#87a3bf",
+      groundEdge: "#87a3bf",
       props: ["snow-pine", "snow-pine", "lantern", "peak"]
     },
     swamp: {
       title: "Swamp Boardwalk View",
       moodLine: `A moody build with moss, water, and glowing little details.`,
-      sky: "#83b6a3",
+      skyTop: "#7daea0",
+      skyBottom: "#d8efe8",
       ground: "#5f6f3d",
-      accent: "#355146",
+      groundEdge: "#355146",
       props: ["mushroom", "shrub", "dock", "lantern"]
     },
     jungle: {
       title: "Jungle Canopy View",
       moodLine: `A lively build hidden inside thick leaves and bold color.`,
-      sky: "#8ed1a8",
+      skyTop: "#87c89d",
+      skyBottom: "#dcf5df",
       ground: "#4c7b3b",
-      accent: "#2f5831",
+      groundEdge: "#2f5831",
       props: ["palm", "palm", "vine-post", "flower"]
     }
   };
 
   const scene = sceneByBiome[biome];
+  const petPropByType: Record<string, string> = {
+    wolf: "pet-wolf",
+    cat: "pet-cat",
+    horse: "pet-horse",
+    donkey: "pet-donkey",
+    mule: "pet-mule",
+    parrot: "pet-parrot",
+    llama: "pet-llama"
+  };
 
   return {
     title: scene.title,
     moodLine: `${scene.moodLine} Perfect for a ${biomeLabel.toLowerCase()} biome.`,
-    sky: scene.sky,
+    skyTop: scene.skyTop,
+    skyBottom: scene.skyBottom,
     ground: scene.ground,
-    accent: scene.accent,
-    props: scene.props
+    groundEdge: scene.groundEdge,
+    structure: {
+      walls: materialColor(walls, "walls"),
+      roof: materialColor(roof, "roof"),
+      door: materialColor(floor, "floor"),
+      window: walls.toLowerCase().includes("glass") ? "#dff8ff" : "#f7dfa0",
+      trim: materialColor(walls, "trim")
+    },
+    props: scene.props,
+    petProp: petPropByType[petType] ?? "pet-cat"
   };
 }
 
@@ -301,6 +390,9 @@ export function createGeneratedBuild(options: GeneratorOptions = {}): GeneratedB
   const purposeMeta = purposes.find((entry) => entry.id === purpose)!;
   const idea = chooseBuildIdea(theme, size, biome, purpose, random);
   const materialSet = chooseMaterialSet(theme, biome, random);
+  const walls = pickOne(materialSet.walls, random);
+  const floor = pickOne(materialSet.floors, random);
+  const roof = pickOne(materialSet.roofs, random);
   const pet = choosePet(theme, biome, random);
 
   const baseBuild: Omit<GeneratedBuild, "createdAt" | "id"> = {
@@ -314,9 +406,9 @@ export function createGeneratedBuild(options: GeneratorOptions = {}): GeneratedB
     buildIdea: idea.title,
     buildSummary: idea.summary,
     materials: {
-      walls: pickOne(materialSet.walls, random),
-      floor: pickOne(materialSet.floors, random),
-      roof: pickOne(materialSet.roofs, random)
+      walls,
+      floor,
+      roof
     },
     interiorIdeas: chooseInteriors(theme, size, purpose, random),
     pet: {
@@ -324,7 +416,16 @@ export function createGeneratedBuild(options: GeneratorOptions = {}): GeneratedB
       label: pet.label,
       nameSuggestions: chooseNames(pet.nameIdeas, random)
     },
-    scene: buildSceneDetails(themeMeta.label, biome, biomeMeta.label, purposeMeta.label),
+    scene: buildSceneDetails(
+      themeMeta.label,
+      biome,
+      biomeMeta.label,
+      purposeMeta.label,
+      walls,
+      roof,
+      floor,
+      pet.id
+    ),
     layoutPlan: buildLayoutPlan(size, purposeMeta.label, biomeMeta.label),
     visualMockup: buildVisualMockup(themeMeta.label, biomeMeta.label, purposeMeta.label),
     buildSteps: buildStepList(idea.title, purposeMeta.label)

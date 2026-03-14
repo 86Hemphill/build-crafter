@@ -127,10 +127,19 @@ export interface GeneratedBuild {
   scene: {
     title: string;
     moodLine: string;
-    sky: string;
+    skyTop: string;
+    skyBottom: string;
     ground: string;
-    accent: string;
+    groundEdge: string;
+    structure: {
+      walls: string;
+      roof: string;
+      door: string;
+      window: string;
+      trim: string;
+    };
     props: string[];
+    petProp: string;
   };
   layoutPlan: string[];
   visualMockup: string[];
