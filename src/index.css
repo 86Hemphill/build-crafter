@@ -3,9 +3,6 @@
   line-height: 1.5;
   font-weight: 400;
   color: #f7f3ea;
-  background:
-    radial-gradient(circle at top, rgba(244, 177, 89, 0.3), transparent 25%),
-    linear-gradient(180deg, #163126 0%, #0d1e17 44%, #09140f 100%);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -14,6 +11,12 @@
   --accent: #f4b159;
   --accent-strong: #ffcf85;
   --text-soft: #d6c7ac;
+  --grass-top: #79c761;
+  --grass-mid: #4d9a43;
+  --grass-shadow: #2d622f;
+  --dirt-light: #8a5b38;
+  --dirt-mid: #6b442b;
+  --dirt-dark: #4a2d1d;
   --theme-cozy: #f2a65a;
   --theme-fancy: #8fd6ff;
   --theme-medieval: #c0aa78;
@@ -30,6 +33,55 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  background:
+    linear-gradient(180deg, rgba(10, 20, 14, 0.2), rgba(10, 20, 14, 0.72)),
+    linear-gradient(
+      180deg,
+      transparent 0,
+      transparent 11.5rem,
+      rgba(30, 58, 28, 0.35) 11.5rem,
+      rgba(30, 58, 28, 0.35) 13rem,
+      transparent 13rem
+    ),
+    linear-gradient(
+      180deg,
+      var(--grass-top) 0,
+      var(--grass-top) 2.2rem,
+      var(--grass-mid) 2.2rem,
+      var(--grass-mid) 3rem,
+      var(--grass-shadow) 3rem,
+      var(--grass-shadow) 3.45rem,
+      var(--dirt-light) 3.45rem,
+      var(--dirt-light) 100%
+    );
+  background-attachment: fixed;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+body::before {
+  opacity: 0.45;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 50%, transparent 50%) 0 0 / 22px 22px,
+    linear-gradient(rgba(255, 255, 255, 0.04) 50%, transparent 50%) 0 0 / 22px 22px,
+    radial-gradient(circle at 20% 30%, rgba(42, 22, 11, 0.5) 0 18%, transparent 19%) 0 0 / 140px 140px,
+    radial-gradient(circle at 72% 58%, rgba(255, 214, 160, 0.08) 0 10%, transparent 11%) 0 0 / 180px 180px,
+    radial-gradient(circle at 58% 22%, rgba(31, 15, 8, 0.38) 0 16%, transparent 17%) 0 0 / 160px 160px;
+  mix-blend-mode: overlay;
+}
+
+body::after {
+  background:
+    radial-gradient(circle at top, rgba(255, 218, 144, 0.2), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 30%);
 }
 
 button,
