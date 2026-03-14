@@ -11,8 +11,8 @@ export function BuildPlanPage() {
       <div className="app-shell">
         <section className="panel empty-state">
           <p className="eyebrow">Guide Missing</p>
-          <h2>That build guide is not in local storage anymore.</h2>
-          <p>Generate a fresh build from the home page and we will create a new guide for it.</p>
+          <h2>That guide is not here anymore.</h2>
+          <p>Make a new build from the home page and we will open a fresh guide for it.</p>
           <Link className="secondary-button link-button" to="/">
             Back Home
           </Link>
@@ -25,7 +25,7 @@ export function BuildPlanPage() {
     <div className="app-shell app-shell-guide">
       <header className="guide-header panel">
         <div>
-          <p className="eyebrow">Detailed Guide</p>
+          <p className="eyebrow">Build Guide</p>
           <h1>{plan.buildIdea}</h1>
           <p className="hero-text">{plan.buildSummary}</p>
         </div>
@@ -77,7 +77,7 @@ export function BuildPlanPage() {
 
         <section className="panel guide-column">
           <p className="eyebrow">Layout</p>
-          <h2>How to block it out</h2>
+          <h2>How to map it out</h2>
           <ul className="guide-list">
             {plan.layoutPlan.map((step) => (
               <li key={step}>{step}</li>
@@ -87,7 +87,7 @@ export function BuildPlanPage() {
 
         <section className="panel guide-column">
           <p className="eyebrow">Visual Mockup</p>
-          <h2>How it should feel</h2>
+          <h2>How it should look</h2>
           <ul className="guide-list">
             {plan.visualMockup.map((note) => (
               <li key={note}>{note}</li>
@@ -97,7 +97,7 @@ export function BuildPlanPage() {
 
         <section className="panel guide-column span-two">
           <p className="eyebrow">Build Steps</p>
-          <h2>Suggested order</h2>
+          <h2>Good order to build it</h2>
           <ol className="guide-list guide-list-numbered">
             {plan.buildSteps.map((step) => (
               <li key={step}>{step}</li>
@@ -116,7 +116,7 @@ export function BuildPlanPage() {
             ))}
           </ul>
           <Link className="secondary-button link-button" to="/">
-            Generate Another Build
+            Make Another Build
           </Link>
         </section>
       </main>

@@ -15,7 +15,7 @@ describe("App routes", () => {
       </MemoryRouter>
     );
 
-    expect(screen.getByText(/try stacking filters for more interesting results/i)).toBeInTheDocument();
+    expect(screen.getByText(/mix filters together to get cooler results/i)).toBeInTheDocument();
   });
 
   it("generates a guide preview from the expanded filters", async () => {
@@ -30,10 +30,10 @@ describe("App routes", () => {
     await user.selectOptions(screen.getByLabelText("Vibe"), "industrial");
     await user.selectOptions(screen.getByLabelText("Biome"), "mountain");
     await user.selectOptions(screen.getByLabelText("Build Goal"), "redstone");
-    await user.click(screen.getByRole("button", { name: /generate build guide/i }));
+    await user.click(screen.getByRole("button", { name: /make a build guide/i }));
 
-    expect(screen.getByText(/fresh blueprint/i)).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /open detailed build guide/i })).toBeInTheDocument();
+    expect(screen.getByText(/new build/i)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /open full build guide/i })).toBeInTheDocument();
   });
 
   it("renders the not found route", () => {

@@ -11,7 +11,7 @@ export function ResultCard({ build }: ResultCardProps) {
     <section className="panel result-card" aria-live="polite">
       <div className="result-header">
         <div>
-          <p className="eyebrow">Fresh Blueprint</p>
+          <p className="eyebrow">New Build</p>
           <h2>{build.buildIdea}</h2>
         </div>
         <div className="pill-row">
@@ -28,16 +28,33 @@ export function ResultCard({ build }: ResultCardProps) {
           <p>{build.materials.walls}</p>
         </article>
         <article>
+          <h3>Floor</h3>
+          <MaterialBlockIcon material={build.materials.floor} />
+          <p>{build.materials.floor}</p>
+        </article>
+        <article>
           <h3>Roof</h3>
           <MaterialBlockIcon material={build.materials.roof} />
           <p>{build.materials.roof}</p>
         </article>
         <article>
-          <h3>Goal</h3>
+          <h3>Build Type</h3>
           <p>{build.purposeLabel}</p>
         </article>
+        <article>
+          <h3>Pet</h3>
+          <p>{build.pet.label}</p>
+        </article>
+        <article>
+          <h3>Name Ideas</h3>
+          <ul className="tag-list">
+            {build.pet.nameSuggestions.map((name) => (
+              <li key={name}>{name}</li>
+            ))}
+          </ul>
+        </article>
         <article className="span-two">
-          <h3>Guide Preview</h3>
+          <h3>Quick Plan</h3>
           <ul className="tag-list">
             {build.layoutPlan.slice(0, 2).map((step) => (
               <li key={step}>{step}</li>
@@ -46,7 +63,7 @@ export function ResultCard({ build }: ResultCardProps) {
         </article>
       </div>
       <Link className="secondary-button link-button" to={`/plans/${build.id}`}>
-        Open Detailed Build Guide
+        Open Full Build Guide
       </Link>
     </section>
   );

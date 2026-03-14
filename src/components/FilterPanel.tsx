@@ -37,8 +37,8 @@ export function FilterPanel({
   return (
     <section className="panel filter-panel" aria-label="Build filters">
       <div className="section-heading">
-        <p className="eyebrow">Build Setup</p>
-        <h2>Choose a vibe, place, and purpose for smarter build ideas.</h2>
+        <p className="eyebrow">Pick Your Build</p>
+        <h2>Choose a vibe, a place, and what the build is for.</h2>
       </div>
       <div className="filter-grid filter-grid-wide">
         <label className="field">
@@ -101,7 +101,7 @@ export function FilterPanel({
               onPurposeChange((event.target.value || undefined) as PurposeId | undefined)
             }
           >
-            <option value="">Any goal</option>
+            <option value="">Any build type</option>
             {purposes.map((purpose) => (
               <option key={purpose.id} value={purpose.id}>
                 {purpose.label}
@@ -111,7 +111,7 @@ export function FilterPanel({
         </label>
       </div>
       <button className="generate-button" onClick={onGenerate} type="button">
-        Generate Build Guide
+        Make a Build Guide
       </button>
     </section>
   );

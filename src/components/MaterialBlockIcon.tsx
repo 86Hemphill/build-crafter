@@ -14,6 +14,26 @@ interface BlockPalette {
 function resolvePalette(material: string): BlockPalette {
   const normalized = material.toLowerCase();
 
+  if (normalized.includes("red sandstone")) {
+    return {
+      top: "#cb7d4a",
+      left: "#9e5933",
+      right: "#7f4425",
+      highlight: "#eba16c",
+      shadow: "#5d2f18"
+    };
+  }
+
+  if (normalized.includes("sandstone") || normalized.includes("terracotta")) {
+    return {
+      top: "#d4b276",
+      left: "#b48954",
+      right: "#976d3f",
+      highlight: "#efd4a2",
+      shadow: "#6e4d2e"
+    };
+  }
+
   if (normalized.includes("weathered copper") || normalized.includes("copper")) {
     return {
       top: "#6fb09e",
@@ -41,16 +61,6 @@ function resolvePalette(material: string): BlockPalette {
       right: "#4f5358",
       highlight: "#c4c8cf",
       shadow: "#2f3338"
-    };
-  }
-
-  if (normalized.includes("sandstone") || normalized.includes("terracotta")) {
-    return {
-      top: "#d4b276",
-      left: "#b48954",
-      right: "#976d3f",
-      highlight: "#efd4a2",
-      shadow: "#6e4d2e"
     };
   }
 

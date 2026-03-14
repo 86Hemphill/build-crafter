@@ -56,21 +56,19 @@ export function HomePage() {
       <header className="hero hero-home">
         <div className="hero-copy">
           <p className="eyebrow">BuildCrafter</p>
-          <h1>Generate a build idea, then open a real guide page for the layout.</h1>
+          <h1>Make a cool build idea, then open a guide to help build it.</h1>
           <p className="hero-text">
-            The home page stays light and playful. Each generated plan gets a dedicated
-            guide with layout notes, visual direction, and build steps you can actually follow.
+            Start with a quick idea here, then jump into a full guide with layout tips,
+            look-and-feel notes, and build steps.
           </p>
         </div>
         <div className="hero-callout panel">
-          <p className="callout-label">Current direction</p>
+          <p className="callout-label">Current Mix</p>
           <h2>{guideCopy.vibe}</h2>
-          <p>
-            {guideCopy.biome} biome, aimed at a {guideCopy.purpose.toLowerCase()} build.
-          </p>
+          <p>{guideCopy.biome} biome with a {guideCopy.purpose.toLowerCase()} focus.</p>
           {currentBuild ? (
             <button className="secondary-button" onClick={handleOpenLatestGuide} type="button">
-              Jump to Latest Guide
+              Open Latest Guide
             </button>
           ) : null}
         </div>
@@ -93,20 +91,20 @@ export function HomePage() {
           <ResultCard build={currentBuild} />
         ) : (
           <section className="panel empty-state">
-            <p className="eyebrow">New Filter Ideas</p>
-            <h2>Try stacking filters for more interesting results.</h2>
+            <p className="eyebrow">Try These Filters</p>
+            <h2>Mix filters together to get cooler results.</h2>
             <div className="idea-grid">
               <article>
                 <h3>Biome</h3>
-                <p>Useful because the same vibe feels very different on a coast, in a jungle, or on a mountain.</p>
+                <p>The same vibe feels really different on a coast, in a jungle, or on a mountain.</p>
               </article>
               <article>
-                <h3>Build Goal</h3>
-                <p>Helps the generator choose layouts that actually match how the build should be used.</p>
+                <h3>Build Type</h3>
+                <p>This helps the guide match what the build should do, not just how it looks.</p>
               </article>
               <article>
                 <h3>Vibe</h3>
-                <p>Now broader, with whimsical and industrial options for more visual personality.</p>
+                <p>Pick from cozy, whimsical, industrial, and more to change the whole feel.</p>
               </article>
             </div>
           </section>
