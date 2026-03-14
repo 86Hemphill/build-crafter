@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { MaterialBlockIcon } from "./MaterialBlockIcon";
 import type { GeneratedBuild } from "../types/build";
 
 interface ResultCardProps {
@@ -23,10 +24,12 @@ export function ResultCard({ build }: ResultCardProps) {
       <div className="result-grid">
         <article>
           <h3>Walls</h3>
+          <MaterialBlockIcon material={build.materials.walls} />
           <p>{build.materials.walls}</p>
         </article>
         <article>
           <h3>Roof</h3>
+          <MaterialBlockIcon material={build.materials.roof} />
           <p>{build.materials.roof}</p>
         </article>
         <article>

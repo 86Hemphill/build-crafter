@@ -36,25 +36,39 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background:
-    linear-gradient(180deg, rgba(10, 20, 14, 0.2), rgba(10, 20, 14, 0.72)),
+    linear-gradient(180deg, rgba(12, 22, 14, 0.18), rgba(8, 14, 10, 0.72)),
+    linear-gradient(
+      90deg,
+      rgba(53, 85, 37, 0.16) 0,
+      rgba(53, 85, 37, 0.16) 25%,
+      rgba(37, 64, 28, 0.16) 25%,
+      rgba(37, 64, 28, 0.16) 50%,
+      rgba(45, 73, 31, 0.16) 50%,
+      rgba(45, 73, 31, 0.16) 75%,
+      rgba(36, 59, 24, 0.16) 75%,
+      rgba(36, 59, 24, 0.16) 100%
+    ) 0 0 / 120px 120px,
     linear-gradient(
       180deg,
       transparent 0,
-      transparent 11.5rem,
-      rgba(30, 58, 28, 0.35) 11.5rem,
-      rgba(30, 58, 28, 0.35) 13rem,
-      transparent 13rem
+      transparent 10.8rem,
+      rgba(34, 64, 29, 0.52) 10.8rem,
+      rgba(34, 64, 29, 0.52) 12.4rem,
+      transparent 12.4rem
     ),
     linear-gradient(
       180deg,
-      var(--grass-top) 0,
-      var(--grass-top) 2.2rem,
-      var(--grass-mid) 2.2rem,
+      #8ad36b 0,
+      #8ad36b 1.8rem,
+      var(--grass-top) 1.8rem,
+      var(--grass-top) 2.35rem,
+      var(--grass-mid) 2.35rem,
       var(--grass-mid) 3rem,
       var(--grass-shadow) 3rem,
-      var(--grass-shadow) 3.45rem,
-      var(--dirt-light) 3.45rem,
-      var(--dirt-light) 100%
+      var(--grass-shadow) 3.35rem,
+      var(--dirt-light) 3.35rem,
+      var(--dirt-mid) 55%,
+      var(--dirt-dark) 100%
     );
   background-attachment: fixed;
   position: relative;
@@ -70,20 +84,18 @@ body::after {
 }
 
 body::before {
-  opacity: 0.45;
+  opacity: 0.6;
   background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 50%, transparent 50%) 0 0 / 22px 22px,
-    linear-gradient(rgba(255, 255, 255, 0.04) 50%, transparent 50%) 0 0 / 22px 22px,
-    radial-gradient(circle at 20% 30%, rgba(42, 22, 11, 0.5) 0 18%, transparent 19%) 0 0 / 140px 140px,
-    radial-gradient(circle at 72% 58%, rgba(255, 214, 160, 0.08) 0 10%, transparent 11%) 0 0 / 180px 180px,
-    radial-gradient(circle at 58% 22%, rgba(31, 15, 8, 0.38) 0 16%, transparent 17%) 0 0 / 160px 160px;
-  mix-blend-mode: overlay;
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 50%, transparent 50%) 0 0 / 18px 18px,
+    linear-gradient(rgba(255, 255, 255, 0.03) 50%, transparent 50%) 0 0 / 18px 18px,
+    linear-gradient(90deg, rgba(58, 36, 22, 0.24) 25%, transparent 25%, transparent 75%, rgba(58, 36, 22, 0.24) 75%) 0 0 / 96px 96px,
+    linear-gradient(rgba(44, 26, 16, 0.18) 25%, transparent 25%, transparent 75%, rgba(44, 26, 16, 0.18) 75%) 0 0 / 96px 96px;
 }
 
 body::after {
   background:
-    radial-gradient(circle at top, rgba(255, 218, 144, 0.2), transparent 28%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 30%);
+    linear-gradient(180deg, rgba(255, 236, 203, 0.08), transparent 24%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.06) 50%, transparent 50%) 0 0 / 48px 48px;
 }
 
 button,
@@ -380,6 +392,30 @@ button {
   margin-bottom: 1.5rem;
 }
 
+.material-block {
+  display: block;
+  margin: 0.2rem 0 0.7rem;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.18));
+}
+
+.material-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin: 1rem 0 1.2rem;
+}
+
+.material-gallery > div {
+  text-align: center;
+}
+
+.material-gallery p {
+  margin: 0.25rem 0 0;
+  color: var(--text-soft);
+  font-size: 0.85rem;
+}
+
 .favorite-meta {
   display: grid;
   gap: 0.6rem;
@@ -411,6 +447,7 @@ button {
   .filter-grid-wide,
   .idea-grid,
   .guide-layout,
+  .material-gallery,
   .result-grid {
     grid-template-columns: 1fr;
   }

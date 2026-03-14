@@ -1,4 +1,5 @@
 import { Link, useParams } from "react-router-dom";
+import { MaterialBlockIcon } from "../components/MaterialBlockIcon";
 import { findPlanById } from "../utils/plans";
 
 export function BuildPlanPage() {
@@ -40,6 +41,20 @@ export function BuildPlanPage() {
         <section className="panel guide-column">
           <p className="eyebrow">Materials</p>
           <h2>Palette</h2>
+          <div className="material-gallery">
+            <div>
+              <MaterialBlockIcon material={plan.materials.walls} />
+              <p>Walls</p>
+            </div>
+            <div>
+              <MaterialBlockIcon material={plan.materials.floor} />
+              <p>Floor</p>
+            </div>
+            <div>
+              <MaterialBlockIcon material={plan.materials.roof} />
+              <p>Roof</p>
+            </div>
+          </div>
           <dl className="favorite-meta">
             <div>
               <dt>Walls</dt>
