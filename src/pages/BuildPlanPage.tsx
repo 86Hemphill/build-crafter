@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { MaterialBlockIcon } from "../components/MaterialBlockIcon";
 import { PetIcon } from "../components/PetIcon";
-import { ScenePanel } from "../components/ScenePanel";
+import { SceneDirectionPanel } from "../components/SceneDirectionPanel";
 import { requestAiRemix } from "../utils/aiRemix";
+import { buildScenePrompt } from "../utils/scenePrompt";
 import { findPlanById } from "../utils/plans";
 import type { AiRemixResult } from "../types/build";
 
@@ -117,7 +118,7 @@ export function BuildPlanPage() {
         </div>
       </section>
 
-      <ScenePanel build={currentPlan} />
+      <SceneDirectionPanel build={currentPlan} />
 
       <main className="guide-layout">
         <section className="panel guide-column">
@@ -221,6 +222,17 @@ export function BuildPlanPage() {
               <p><strong>Pet moment:</strong> {remix.petMoment}</p>
             </div>
           ) : null}
+          <div className="ai-remix-card">
+            <h3>Future scene image</h3>
+            <p>
+              We removed the old hand-drawn scene. The app now keeps a scene brief so AI
+              can generate this later at better quality.
+            </p>
+            <details className="scene-prompt-preview">
+              <summary>Preview future image prompt</summary>
+              <p>{buildScenePrompt(currentPlan)}</p>
+            </details>
+          </div>
         </section>
 
         <section className="panel guide-column">

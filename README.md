@@ -34,3 +34,9 @@ To turn it on in Netlify:
 - Optional: add `OPENAI_REMIX_MODEL` if you want a model other than the default
 
 Without those env vars, the app still works normally and the remix button simply shows a setup message.
+
+## Future AI Scene Images
+
+The old hand-drawn scene panel has been replaced with a stronger scene-direction section plus a future image prompt builder in [`src/utils/scenePrompt.ts`](/c:/Users/lhemphill/CraftBuilder/craft-builder/src/utils/scenePrompt.ts).
+
+There is also a placeholder Netlify function at [`netlify/functions/generate-scene-image.js`](/c:/Users/lhemphill/CraftBuilder/craft-builder/netlify/functions/generate-scene-image.js) so the image path can be turned on later without another large refactor.

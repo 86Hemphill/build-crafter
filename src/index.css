@@ -198,23 +198,12 @@ button {
   padding: 1.1rem;
 }
 
-.scene-copy p:last-child {
+.scene-direction-panel {
+  margin-bottom: 1.5rem;
+}
+
+.scene-direction-panel .overview-card p:last-child {
   color: var(--text-soft);
-}
-
-.scene-canvas {
-  border-radius: 24px;
-  overflow: hidden;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
-}
-
-.scene-svg {
-  display: block;
-  width: 100%;
-  height: auto;
-  image-rendering: pixelated;
 }
 
 .overview-card {
@@ -599,6 +588,21 @@ button {
 .ai-remix-card h3,
 .ai-remix-card h4 {
   margin-bottom: 0.45rem;
+}
+
+.scene-prompt-preview {
+  margin-top: 0.8rem;
+}
+
+.scene-prompt-preview summary {
+  cursor: pointer;
+  color: var(--accent-strong);
+}
+
+.scene-prompt-preview p {
+  margin-top: 0.75rem;
+  color: var(--text-soft);
+  line-height: 1.65;
 }
 
 .filter-panel {
