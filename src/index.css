@@ -202,6 +202,69 @@ button {
   margin-bottom: 1.5rem;
 }
 
+.scene-preview-panel {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.1fr);
+  gap: 1.2rem;
+  align-items: stretch;
+  margin-bottom: 1.5rem;
+  padding: 1.1rem;
+}
+
+.scene-preview-copy {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.scene-preview-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.scene-preview-facts h3 {
+  margin: 0.2rem 0 0.45rem;
+}
+
+.scene-preview-frame {
+  min-height: 340px;
+  border-radius: 22px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(255, 244, 226, 0.06), rgba(255, 255, 255, 0.02)),
+    rgba(11, 18, 14, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: grid;
+  align-items: center;
+  padding: 0.9rem;
+}
+
+.scene-preview-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 18px;
+  box-shadow: var(--shadow-soft);
+}
+
+.scene-preview-empty {
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 2rem;
+  border-radius: 18px;
+  border: 1px dashed rgba(255, 255, 255, 0.16);
+  background:
+    linear-gradient(180deg, rgba(255, 207, 133, 0.06), rgba(255, 255, 255, 0.02)),
+    linear-gradient(135deg, rgba(92, 135, 81, 0.18), rgba(78, 51, 31, 0.12));
+}
+
+.scene-preview-empty h3 {
+  margin: 0.25rem 0 0.5rem;
+}
+
 .scene-direction-panel .overview-card p:last-child {
   color: var(--text-soft);
 }
@@ -727,6 +790,8 @@ button {
   .filter-grid-wide,
   .guide-overview,
   .scene-panel,
+  .scene-preview-panel,
+  .scene-preview-facts,
   .ai-compare-grid,
   .idea-grid,
   .guide-layout,

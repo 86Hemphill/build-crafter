@@ -3,11 +3,17 @@ import { Link, useParams } from "react-router-dom";
 import { MaterialBlockIcon } from "../components/MaterialBlockIcon";
 import { PetIcon } from "../components/PetIcon";
 import { SceneDirectionPanel } from "../components/SceneDirectionPanel";
+import { ScenePreviewPanel } from "../components/ScenePreviewPanel";
 import { requestAiRemix } from "../utils/aiRemix";
 import { clearCachedRemix, loadCachedRemix, saveCachedRemix } from "../utils/remixCache";
-import { buildScenePrompt } from "../utils/scenePrompt";
+import { requestSceneImage } from "../utils/sceneImage";
+import {
+  clearCachedSceneImage,
+  loadCachedSceneImage,
+  saveCachedSceneImage
+} from "../utils/sceneImageCache";
 import { findPlanById } from "../utils/plans";
-import type { AiRemixResult } from "../types/build";
+import type { AiRemixResult, AiSceneResult } from "../types/build";
 
 const petNotes: Record<string, { vibe: string; bestSpot: string; detail: string }> = {
   wolf: {
@@ -54,6 +60,10 @@ export function BuildPlanPage() {
   const [remixError, setRemixError] = useState<string | null>(null);
   const [isLoadingRemix, setIsLoadingRemix] = useState(false);
   const [remixSource, setRemixSource] = useState<"fresh" | "saved" | null>(null);
+  const [sceneImage, setSceneImage] = useState<AiSceneResult | null>(null);
+  const [sceneError, setSceneError] = useState<string | null>(null);
+  const [isLoadingScene, setIsLoadingScene] = useState(false);
+  const [sceneSource, setSceneSource] = useState<"fresh" | "saved" | null>(null);
 
   if (!plan) {
     return (
@@ -75,10 +85,15 @@ export function BuildPlanPage() {
 
   useEffect(() => {
     const cachedRemix = loadCachedRemix(currentPlan.id);
+    const cachedSceneImage = loadCachedSceneImage(currentPlan.id);
     setRemix(cachedRemix);
     setRemixSource(cachedRemix ? "saved" : null);
+    setSceneImage(cachedSceneImage);
+    setSceneSource(cachedSceneImage ? "saved" : null);
     setRemixError(null);
+    setSceneError(null);
     setIsLoadingRemix(false);
+    setIsLoadingScene(false);
   }, [currentPlan.id]);
 
   async function handleRemix() {
@@ -101,6 +116,28 @@ export function BuildPlanPage() {
     setRemix(null);
     setRemixSource(null);
     setRemixError(null);
+  }
+
+  async function handleSceneImage() {
+    try {
+      setIsLoadingScene(true);
+      setSceneError(null);
+      const result = await requestSceneImage(currentPlan);
+      setSceneImage(result);
+      setSceneSource("fresh");
+      saveCachedSceneImage(currentPlan.id, result);
+    } catch (error) {
+      setSceneError(error instanceof Error ? error.message : "AI scene art could not load.");
+    } finally {
+      setIsLoadingScene(false);
+    }
+  }
+
+  function handleClearSceneImage() {
+    clearCachedSceneImage(currentPlan.id);
+    setSceneImage(null);
+    setSceneSource(null);
+    setSceneError(null);
   }
 
   return (
@@ -138,6 +175,15 @@ export function BuildPlanPage() {
       </section>
 
       <SceneDirectionPanel build={currentPlan} />
+      <ScenePreviewPanel
+        build={currentPlan}
+        error={sceneError}
+        isLoading={isLoadingScene}
+        onClear={handleClearSceneImage}
+        onGenerate={handleSceneImage}
+        sceneImage={sceneImage}
+        sceneSource={sceneSource}
+      />
 
       <main className="guide-layout">
         <section className="panel guide-column">
@@ -283,15 +329,15 @@ export function BuildPlanPage() {
             </div>
           ) : null}
           <div className="ai-remix-card">
-            <h3>Future scene image</h3>
+            <h3>Scene art is live</h3>
             <p>
-              We removed the old hand-drawn scene. The app now keeps a scene brief so AI
-              can make this later at better quality.
+              The build guide can now make concept art from the current build plan while
+              keeping the real instructions grounded in the structured data.
             </p>
-            <details className="scene-prompt-preview">
-              <summary>Preview future image prompt</summary>
-              <p>{buildScenePrompt(currentPlan)}</p>
-            </details>
+            <p className="hero-text">
+              Use the scene preview to check mood, colors, and shape. Use the guide cards
+              for the actual build plan.
+            </p>
           </div>
         </section>
 

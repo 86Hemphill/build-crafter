@@ -48,11 +48,11 @@ export function SceneDirectionPanel({ build }: SceneDirectionPanelProps) {
         </ul>
       </div>
       <div className="overview-card">
-        <p className="eyebrow">Future AI Art</p>
-        <h2>Ready later</h2>
+        <p className="eyebrow">AI Art Ready</p>
+        <h2>Prompt-ready</h2>
         <p>
-          The guide now stores scene colors, props, and pet placement so we can hand
-          this off to AI image generation later without redesigning the app.
+          The guide stores scene colors, props, and pet placement so the image preview
+          can stay tied to the real build plan.
         </p>
       </div>
     </section>

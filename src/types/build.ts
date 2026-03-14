@@ -154,3 +154,8 @@ export interface AiRemixResult {
   extraTouches: string[];
   petMoment: string;
 }
+
+export interface AiSceneResult {
+  imageUrl: string;
+  revisedPrompt?: string;
+}
