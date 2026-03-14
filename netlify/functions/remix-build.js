@@ -28,6 +28,82 @@ const REMIX_SCHEMA = {
 const DEFAULT_MODEL = process.env.OPENAI_REMIX_MODEL || "gpt-5-mini";
 const REQUEST_TIMEOUT_MS = Number(process.env.OPENAI_REMIX_TIMEOUT_MS || 12000);
 
+function findJsonText(value) {
+  if (!value) {
+    return null;
+  }
+
+  if (typeof value === "string") {
+    const trimmed = value.trim();
+    return trimmed.startsWith("{") ? trimmed : null;
+  }
+
+  if (Array.isArray(value)) {
+    for (const item of value) {
+      const match = findJsonText(item);
+      if (match) {
+        return match;
+      }
+    }
+    return null;
+  }
+
+  if (typeof value === "object") {
+    if (typeof value.text === "string") {
+      const directText = findJsonText(value.text);
+      if (directText) {
+        return directText;
+      }
+    }
+
+    if (typeof value.output_text === "string") {
+      const outputText = findJsonText(value.output_text);
+      if (outputText) {
+        return outputText;
+      }
+    }
+
+    if (typeof value.arguments === "string") {
+      const argsText = findJsonText(value.arguments);
+      if (argsText) {
+        return argsText;
+      }
+    }
+
+    for (const key of Object.keys(value)) {
+      const match = findJsonText(value[key]);
+      if (match) {
+        return match;
+      }
+    }
+  }
+
+  return null;
+}
+
+function parseRemixPayload(payload) {
+  const refusal =
+    payload?.refusal ||
+    payload?.error?.message ||
+    payload?.output?.find?.((item) => item?.type === "refusal")?.content?.[0]?.text;
+
+  if (refusal) {
+    throw new Error(typeof refusal === "string" ? refusal : "The AI refused this remix request.");
+  }
+
+  const jsonText = findJsonText(payload?.output_text) || findJsonText(payload?.output);
+
+  if (!jsonText) {
+    const status = payload?.status ? ` Status: ${payload.status}.` : "";
+    const incomplete =
+      payload?.incomplete_details?.reason || payload?.status_details?.reason || null;
+    const reason = incomplete ? ` Reason: ${incomplete}.` : "";
+    throw new Error(`OpenAI returned an empty remix.${status}${reason}`);
+  }
+
+  return JSON.parse(jsonText);
+}
+
 function createRemixInput(build) {
   const safeBuild = {
     buildIdea: build.buildIdea,
@@ -145,19 +221,12 @@ exports.handler = async function handler(event) {
         };
       }
 
-      const outputText = payload.output_text;
-
-      if (!outputText) {
-        return {
-          statusCode: 502,
-          body: JSON.stringify({ error: "OpenAI returned an empty remix." })
-        };
-      }
+      const remix = parseRemixPayload(payload);
 
       return {
         statusCode: 200,
         body: JSON.stringify({
-          remix: JSON.parse(outputText)
+          remix
         })
       };
     } finally {
